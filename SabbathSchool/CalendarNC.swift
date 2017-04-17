@@ -1,18 +1,17 @@
 //
-//  ViewController.swift
+//  CalendarNC.swift
 //  SabbathSchool
 //
-//  Created by André Pimentel on 14/02/17.
+//  Created by André Pimentel on 09/03/17.
 //  Copyright © 2017 IASD. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalendarNC: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {

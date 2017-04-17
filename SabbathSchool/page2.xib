@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_escrita_lado" translatesAutoresizingMaskIntoConstraints="NO" id="nbD-oc-Loo">
+                    <rect key="frame" x="50" y="259" width="275" height="150"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="6dd-nc-Q8M"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRÓXIMO &gt;&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Usl-e9-3l4">
+                    <rect key="frame" x="281" y="25" width="79" height="16"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                    <color key="textColor" red="0.60784274339675903" green="0.60372322797775269" blue="0.61604362726211548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BEM VINDO AO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCh-oh-K6D">
+                    <rect key="frame" x="116" y="185" width="144" height="24"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                    <color key="textColor" red="0.6078427434" green="0.603723228" blue="0.61604362729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seu aplicativo oficial para a escola sabatina" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNH-aT-dxq">
+                    <rect key="frame" x="50" y="459" width="275" height="47"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                    <color key="textColor" red="0.6078427434" green="0.603723228" blue="0.61604362729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Usl-e9-3l4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="1Mc-aR-l0S"/>
+                <constraint firstAttribute="trailing" secondItem="nbD-oc-Loo" secondAttribute="trailing" constant="50" id="7SJ-5P-lE6"/>
+                <constraint firstItem="BCh-oh-K6D" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="BfQ-Zn-n1m"/>
+                <constraint firstAttribute="trailing" secondItem="Usl-e9-3l4" secondAttribute="trailing" constant="15" id="DF5-X0-Jgk"/>
+                <constraint firstItem="cNH-aT-dxq" firstAttribute="top" secondItem="nbD-oc-Loo" secondAttribute="bottom" constant="50" id="ZMp-H0-Qrc"/>
+                <constraint firstItem="nbD-oc-Loo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="aCC-ON-gFg"/>
+                <constraint firstItem="cNH-aT-dxq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="aop-IO-VsP"/>
+                <constraint firstAttribute="trailing" secondItem="cNH-aT-dxq" secondAttribute="trailing" constant="50" id="bzD-Up-FVI"/>
+                <constraint firstItem="nbD-oc-Loo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="vMw-H1-5uu"/>
+                <constraint firstItem="nbD-oc-Loo" firstAttribute="top" secondItem="BCh-oh-K6D" secondAttribute="bottom" constant="50" id="yIq-td-uJj"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="logo_escrita_lado" width="772" height="448"/>
+    </resources>
+</document>

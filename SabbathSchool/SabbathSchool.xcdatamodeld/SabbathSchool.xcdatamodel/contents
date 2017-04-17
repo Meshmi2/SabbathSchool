@@ -1,4 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16D32" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Calendar_" representedClassName="Calendar_" syncable="YES">
+        <attribute name="date_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="function_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="released_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="saturday_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Card_" representedClassName="Card_" syncable="YES">
+        <attribute name="answer_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="description_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="presence" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="target_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Class_" representedClassName="Class_" syncable="YES">
+        <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Friend_" representedClassName="Friend_" syncable="YES">
+        <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="instructor_" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameInstructor_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="statusId_" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="instructor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Instructor_" inverseName="friend" inverseEntity="Instructor_" syncable="YES"/>
+    </entity>
+    <entity name="Info" representedClassName="Info" syncable="YES">
+        <attribute name="description_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descriptionValue_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="percentual_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reportPercentual_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="smile_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Instructor_" representedClassName="Instructor_" syncable="YES">
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="friend" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Friend_" inverseName="instructor" inverseEntity="Friend_" syncable="YES"/>
+    </entity>
+    <entity name="Period_" representedClassName="Period_" syncable="YES">
+        <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" isAbstract="YES" syncable="YES">
+        <attribute name="ageGroupId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ageGroupName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="classId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="className_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="entity_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityLevel_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="entityTypeName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="functionId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="functionName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="peopleId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="periodId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="periodName_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Calendar_" positionX="153" positionY="-306" width="128" height="120"/>
+        <element name="Card_" positionX="-2" positionY="-285" width="128" height="150"/>
+        <element name="Class_" positionX="54" positionY="-180" width="128" height="75"/>
+        <element name="Friend_" positionX="-54" positionY="270" width="128" height="133"/>
+        <element name="Info" positionX="-153" positionY="-72" width="128" height="165"/>
+        <element name="Instructor_" positionX="250" positionY="-126" width="128" height="73"/>
+        <element name="Period_" positionX="63" positionY="-171" width="128" height="75"/>
+        <element name="User" positionX="-171" positionY="-351" width="128" height="255"/>
+    </elements>
 </model>

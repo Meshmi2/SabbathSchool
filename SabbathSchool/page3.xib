@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fundo_intro" translatesAutoresizingMaskIntoConstraints="NO" id="2Gx-rp-BX0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRÓXIMO &gt;&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gy5-VD-H8s">
+                    <rect key="frame" x="281" y="25" width="79" height="16"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                    <color key="textColor" red="0.6078427434" green="0.603723228" blue="0.61604362729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="O QUE É" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Q0-X6-USP">
+                    <rect key="frame" x="153" y="130" width="69" height="20"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                    <color key="textColor" red="0.6078427434" green="0.603723228" blue="0.61604362729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MINHA ESCOLA SABATINA" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNj-1O-CPQ">
+                    <rect key="frame" x="50" y="158" width="275" height="60"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                    <color key="textColor" red="0.0" green="0.53510177135467529" blue="0.6895337700843811" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_es_pequeno" translatesAutoresizingMaskIntoConstraints="NO" id="BDA-UQ-rBG">
+                    <rect key="frame" x="123" y="443" width="130" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="7LN-ho-gAX"/>
+                        <constraint firstAttribute="width" constant="130" id="aq8-No-lr0"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="É o aplicativo que você userá para registrar sua presença na escola sabatina e sua participação nos itens relacionados a missão" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AmU-1V-asd">
+                    <rect key="frame" x="60" y="278" width="255" height="111"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                    <color key="textColor" red="0.6078427434" green="0.603723228" blue="0.61604362729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Gy5-VD-H8s" secondAttribute="trailing" constant="15" id="66o-pQ-se0"/>
+                <constraint firstAttribute="trailing" secondItem="yNj-1O-CPQ" secondAttribute="trailing" constant="50" id="94a-UX-UFP"/>
+                <constraint firstItem="yNj-1O-CPQ" firstAttribute="top" secondItem="2Q0-X6-USP" secondAttribute="bottom" constant="8" id="FFU-F1-IWF"/>
+                <constraint firstAttribute="trailing" secondItem="AmU-1V-asd" secondAttribute="trailing" constant="60" id="Fwk-Et-6ij"/>
+                <constraint firstItem="2Gx-rp-BX0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ICM-Fd-zx2"/>
+                <constraint firstItem="yNj-1O-CPQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="L6W-kb-mwD"/>
+                <constraint firstAttribute="bottom" secondItem="2Gx-rp-BX0" secondAttribute="bottom" id="OpE-he-T02"/>
+                <constraint firstAttribute="bottom" secondItem="BDA-UQ-rBG" secondAttribute="bottom" constant="124" id="VRi-Pr-eUA"/>
+                <constraint firstItem="BDA-UQ-rBG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="euv-Q5-3Qr"/>
+                <constraint firstItem="AmU-1V-asd" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fWY-ua-TVF"/>
+                <constraint firstItem="2Q0-X6-USP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="130" id="hPK-KS-Swb"/>
+                <constraint firstItem="Gy5-VD-H8s" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="hbv-16-5IU"/>
+                <constraint firstItem="2Q0-X6-USP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jOL-AY-Q0V"/>
+                <constraint firstItem="AmU-1V-asd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="60" id="vDy-wm-Jau"/>
+                <constraint firstAttribute="trailing" secondItem="2Gx-rp-BX0" secondAttribute="trailing" id="vni-T4-R3e"/>
+                <constraint firstItem="2Gx-rp-BX0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xyU-4Q-35x"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="fundo_intro" width="1156" height="1920"/>
+        <image name="logo_es_pequeno" width="363" height="285"/>
+    </resources>
+</document>
