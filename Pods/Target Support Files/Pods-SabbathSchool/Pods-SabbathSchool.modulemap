@@ -1,0 +1,6 @@
+framework module Pods_SabbathSchool {
+  umbrella header "Pods-SabbathSchool-umbrella.h"
+
+  export *
+  module * { export * }
+}
