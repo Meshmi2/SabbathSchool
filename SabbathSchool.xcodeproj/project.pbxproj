@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4CECE475C40B07F746F8E294 /* Pods_SabbathSchool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36BBEBEDC07DB03410DB2C5F /* Pods_SabbathSchool.framework */; };
-		BF07C8971E71F9E900BC9BD2 /* CalendarNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF07C8961E71F9E900BC9BD2 /* CalendarNC.swift */; };
 		BF07C8991E71FBD100BC9BD2 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF07C8981E71FBD100BC9BD2 /* CalendarVC.swift */; };
 		BF1801401E7866360022685C /* page2.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF18013B1E7866360022685C /* page2.xib */; };
 		BF1801411E7866360022685C /* page1.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF18013C1E7866360022685C /* page1.xib */; };
@@ -88,13 +87,15 @@
 		BFE2CCFD1E684A4D0040FC35 /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE2CCDF1E684A4D0040FC35 /* TransitionZoom.swift */; };
 		BFE2CCFE1E684A4D0040FC35 /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE2CCE01E684A4D0040FC35 /* UnwindSegue.swift */; };
 		BFE3388A1E8847480013599A /* ParametersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE338891E8847480013599A /* ParametersVC.swift */; };
+		BFF8F9DC1EA6343300AB9B96 /* Header_+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8F9DA1EA6343300AB9B96 /* Header_+CoreDataClass.swift */; };
+		BFF8F9DD1EA6343300AB9B96 /* Header_+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8F9DB1EA6343300AB9B96 /* Header_+CoreDataProperties.swift */; };
+		BFF8F9DF1EA6496F00AB9B96 /* CalendarNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8F9DE1EA6496F00AB9B96 /* CalendarNC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		128581DC457968789B31146B /* Pods-SabbathSchool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SabbathSchool.release.xcconfig"; path = "Pods/Target Support Files/Pods-SabbathSchool/Pods-SabbathSchool.release.xcconfig"; sourceTree = "<group>"; };
 		36BBEBEDC07DB03410DB2C5F /* Pods_SabbathSchool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SabbathSchool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F36A5A7C5DE688B74C8B30A /* Pods-SabbathSchool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SabbathSchool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SabbathSchool/Pods-SabbathSchool.debug.xcconfig"; sourceTree = "<group>"; };
-		BF07C8961E71F9E900BC9BD2 /* CalendarNC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarNC.swift; sourceTree = "<group>"; };
 		BF07C8981E71FBD100BC9BD2 /* CalendarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		BF18013B1E7866360022685C /* page2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = page2.xib; sourceTree = "<group>"; };
 		BF18013C1E7866360022685C /* page1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = page1.xib; sourceTree = "<group>"; };
@@ -177,6 +178,9 @@
 		BFE2CCDF1E684A4D0040FC35 /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
 		BFE2CCE01E684A4D0040FC35 /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		BFE338891E8847480013599A /* ParametersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametersVC.swift; sourceTree = "<group>"; };
+		BFF8F9DA1EA6343300AB9B96 /* Header_+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Header_+CoreDataClass.swift"; path = "CoreData/Header_+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BFF8F9DB1EA6343300AB9B96 /* Header_+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Header_+CoreDataProperties.swift"; path = "CoreData/Header_+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BFF8F9DE1EA6496F00AB9B96 /* CalendarNC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarNC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +226,8 @@
 		BF3A52821E84085D00F9015D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				BFF8F9DA1EA6343300AB9B96 /* Header_+CoreDataClass.swift */,
+				BFF8F9DB1EA6343300AB9B96 /* Header_+CoreDataProperties.swift */,
 				BFCB01721E95AD8A006E23A9 /* Class_+CoreDataClass.swift */,
 				BFCB01731E95AD8A006E23A9 /* Class_+CoreDataProperties.swift */,
 				BFCB01741E95AD8A006E23A9 /* Period_+CoreDataClass.swift */,
@@ -310,7 +316,7 @@
 				BF9539F21E54945B00884A36 /* SideMenuTableView.swift */,
 				BFB95F9A1E536C21008BF5ED /* AppDelegate.swift */,
 				BFB95F9C1E536C21008BF5ED /* LoginVC.swift */,
-				BF07C8961E71F9E900BC9BD2 /* CalendarNC.swift */,
+				BFF8F9DE1EA6496F00AB9B96 /* CalendarNC.swift */,
 				BF07C8981E71FBD100BC9BD2 /* CalendarVC.swift */,
 				BF68A8A91E7963A9009017E8 /* IntroVC.swift */,
 				BF6AA2151E93E82B0013FE0C /* CardVC.swift */,
@@ -548,7 +554,6 @@
 				BFCB016C1E95608E006E23A9 /* Instructor_+CoreDataClass.swift in Sources */,
 				BFE3388A1E8847480013599A /* ParametersVC.swift in Sources */,
 				BFCB01761E95AD8A006E23A9 /* Class_+CoreDataClass.swift in Sources */,
-				BF07C8971E71F9E900BC9BD2 /* CalendarNC.swift in Sources */,
 				BFB95F9D1E536C21008BF5ED /* LoginVC.swift in Sources */,
 				BFCB016D1E95608E006E23A9 /* Instructor_+CoreDataProperties.swift in Sources */,
 				BFA7ABAD1E84371D00DCFF3E /* User+CoreDataProperties.swift in Sources */,
@@ -562,11 +567,14 @@
 				BFE2CCE51E684A4D0040FC35 /* DesignableButton.swift in Sources */,
 				BFE2CCF81E684A4D0040FC35 /* SpringLabel.swift in Sources */,
 				BFCB01671E955BE1006E23A9 /* FriendsVC.swift in Sources */,
+				BFF8F9DD1EA6343300AB9B96 /* Header_+CoreDataProperties.swift in Sources */,
 				BF6AA21C1E9405D40013FE0C /* Card_+CoreDataClass.swift in Sources */,
 				BFE2CCE11E684A4D0040FC35 /* AsyncButton.swift in Sources */,
+				BFF8F9DF1EA6496F00AB9B96 /* CalendarNC.swift in Sources */,
 				BF6AA2181E93E8940013FE0C /* CardTVCell.swift in Sources */,
 				BFB95F9B1E536C21008BF5ED /* AppDelegate.swift in Sources */,
 				BF6A77EC1E8BFABA007DA44B /* Period.swift in Sources */,
+				BFF8F9DC1EA6343300AB9B96 /* Header_+CoreDataClass.swift in Sources */,
 				BF9539F41E54945B00884A36 /* PresentedViewController.swift in Sources */,
 				BFE2CCE71E684A4D0040FC35 /* DesignableLabel.swift in Sources */,
 				BFC47BB51E897AF700C5DF68 /* InitialInformation.swift in Sources */,

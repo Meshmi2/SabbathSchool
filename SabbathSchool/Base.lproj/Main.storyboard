@@ -177,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-274" y="102"/>
+            <point key="canvasLocation" x="895" y="100"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qh8-wB-bcO">
@@ -196,7 +196,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ymq-Sd-ZP5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1358" y="89"/>
+            <point key="canvasLocation" x="2047" y="88"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="ZKx-bf-g3a">
@@ -590,7 +590,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBl-Bz-BMM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2061.5999999999999" y="87.706146926536732"/>
+            <point key="canvasLocation" x="2818" y="88"/>
         </scene>
         <!--ParametersVC-->
         <scene sceneID="xzq-PY-Ir7">
@@ -759,7 +759,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0f-gD-Qem" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2956" y="-618.44077961019491"/>
+            <point key="canvasLocation" x="3777" y="-1449"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="7Pm-hB-ax9">
@@ -779,7 +779,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qfv-ob-vhH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3820" y="-241.52923538230885"/>
+            <point key="canvasLocation" x="3778" y="101"/>
         </scene>
         <!--Side Menu Table View-->
         <scene sceneID="2t2-VP-SAd">
@@ -960,7 +960,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zf5-qP-nWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4588" y="-340.47976011994007"/>
+            <point key="canvasLocation" x="4705" y="88"/>
         </scene>
         <!--CalendarVC-->
         <scene sceneID="9Gp-qP-TzU">
@@ -1172,7 +1172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C47-y0-ZbW" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6306.3999999999996" y="-1093.4032983508246"/>
+            <point key="canvasLocation" x="6380" y="-747"/>
         </scene>
         <!--CardVC-->
         <scene sceneID="h0V-Gz-Ru4">
@@ -1276,6 +1276,9 @@
                                                                     <color key="value" red="0.27058823529999998" green="0.63529411759999999" blue="0.72156862749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="0vn-6m-Afc" id="Owv-XY-bK9"/>
+                                                            </connections>
                                                         </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1330,11 +1333,12 @@
                         <outlet property="classLabel" destination="mPY-uB-ZCK" id="Jsr-Rl-LKC"/>
                         <outlet property="dateLabel" destination="Mqb-Yz-AbJ" id="HDI-1D-ufu"/>
                         <outlet property="registredLabel" destination="gFF-FD-lJk" id="IEe-EY-7jC"/>
+                        <outlet property="tableView" destination="FVe-yD-4rZ" id="BgD-2P-gmW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jy0-4m-Jlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7061.6000000000004" y="-1091.6041979010495"/>
+            <point key="canvasLocation" x="7223" y="-747"/>
         </scene>
         <!--FriendsVC-->
         <scene sceneID="dWT-X6-CZn">
@@ -1527,7 +1531,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6l3-GG-obs" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6468" y="-281.10944527736132"/>
+            <point key="canvasLocation" x="6380" y="88"/>
         </scene>
         <!--Sobre-->
         <scene sceneID="c5Q-vH-CsX">
@@ -1547,12 +1551,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YF-cz-HXG" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4524" y="482"/>
+            <point key="canvasLocation" x="4705" y="887"/>
         </scene>
         <!--CalendarNC-->
         <scene sceneID="8sH-hk-mcg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7ed-7Z-cwz" customClass="CalendarNC" customModule="SabbathSchool" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7ed-7Z-cwz" customClass="CalendarNC" customModule="SabbathSchool" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="TEh-UZ-K0A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1566,7 +1570,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wob-Si-SRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5367.1999999999998" y="-1093.4032983508246"/>
+            <point key="canvasLocation" x="5590" y="-747"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DlX-aD-JSf">
@@ -1585,7 +1589,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uFP-TH-q6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5528.8000000000002" y="-281.10944527736132"/>
+            <point key="canvasLocation" x="5590" y="88"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ptU-Pb-9BQ">
@@ -1604,7 +1608,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hpC-4J-4Gb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2008.8" y="-618.44077961019491"/>
+            <point key="canvasLocation" x="3777" y="-700"/>
         </scene>
     </scenes>
     <resources>

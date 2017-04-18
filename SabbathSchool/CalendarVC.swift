@@ -54,9 +54,14 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         loadUser()
         
+        print(classId)
+        
+        print(periodId)
+        
         getCalendar()
         
         getCalendarCoreData()
+        
     }
 
     
@@ -89,6 +94,8 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
             case .failure(let error):
                 
+                self.getCalendarCoreData()
+                
                 print(error.localizedDescription)
                 
                 return
@@ -109,7 +116,11 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.newCalendar.setValue(_calendar.status, forKey: "status_")
                     
                     do {
+                        
                         try self.newCalendar.managedObjectContext?.save()
+                        
+                        self.getCalendarCoreData()
+                        
                     } catch {
                         appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
                     }
@@ -198,6 +209,7 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        getCalendarCoreData()
         
         let dateSegue = calendar?[indexPath.row]
     

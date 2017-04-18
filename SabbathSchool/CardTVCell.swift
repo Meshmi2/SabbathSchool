@@ -8,8 +8,8 @@
 
 import UIKit
 
-class CardTVCell: UITableViewCell {
-
+class CardTVCell: UITableViewCell, UITextFieldDelegate {
+    
     @IBOutlet weak var valueQuestionTextField: UITextField!
     @IBOutlet weak var descriptionQuestionLabel: UILabel!
     @IBOutlet weak var titleQuestionLabel: UILabel!
@@ -19,6 +19,7 @@ class CardTVCell: UITableViewCell {
         // Initialization code
     }
     
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -27,5 +28,6 @@ class CardTVCell: UITableViewCell {
     
     
     
+
 
 }
