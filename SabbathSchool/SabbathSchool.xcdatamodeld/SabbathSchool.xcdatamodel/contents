@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16D32" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Calendar_" representedClassName="Calendar_" syncable="YES">
         <attribute name="date_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="function_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -27,6 +27,10 @@
         <attribute name="nameInstructor_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="statusId_" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="instructor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Instructor_" inverseName="friend" inverseEntity="Instructor_" syncable="YES"/>
+    </entity>
+    <entity name="Header_" representedClassName="Header_" syncable="YES">
+        <attribute name="form_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="registered_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Info" representedClassName="Info" syncable="YES">
         <attribute name="description_" optional="YES" attributeType="String" syncable="YES"/>
@@ -71,5 +75,6 @@
         <element name="Instructor_" positionX="250" positionY="-126" width="128" height="73"/>
         <element name="Period_" positionX="63" positionY="-171" width="128" height="75"/>
         <element name="User" positionX="-171" positionY="-351" width="128" height="255"/>
+        <element name="Header_" positionX="36" positionY="-198" width="128" height="75"/>
     </elements>
 </model>

@@ -144,7 +144,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             case .failure(let error):
                 
+                self.getInfoCoreData()
+                
                 print(error.localizedDescription)
+                
+                
                 
                 return
                 
@@ -226,14 +230,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                    
                         self.newInfo.setValue("none", forKey: "smile_")
                     
-                       
-                        
                     }
-                    
-                    //print(" ")
                     
                     do {
                         try self.newInfo.managedObjectContext?.save()
+                        
+                        self.getInfoCoreData()
+                        
                     } catch {
                         appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
                     }
@@ -361,8 +364,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func setupReachability(_ hostName: String?, useClosures: Bool) {
-        appDelegate.errorView(hostName != nil ? hostName! : "www.iap.org.br")
+        //appDelegate.errorView(hostName != nil ? hostName! : "www.iap.org.br")
     
+        print("\((hostName != nil ? hostName! : "www.iap.org.br"))")
+        
         let reachability = hostName == nil ? Reachability() : Reachability(hostname: hostName!)
         self.reachability = reachability
         
@@ -390,7 +395,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         do {
             try reachability?.startNotifier()
         } catch {
-            appDelegate.infoView(message: "Unable to start\nnotifier", color: .red)
+            
+            //appDelegate.infoView(message: "Unable to start\nnotifier", color: .red)
+            //print("\((message: "Unable to start\nnotifier", color: .red))" as Any)
+            
             return
         }
     }
@@ -415,7 +423,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         }
         
-        appDelegate.errorView(reachability.currentReachabilityString)
+        //appDelegate.errorView(reachability.currentReachabilityString)
+        print("\((reachability.currentReachabilityString))")
     }
     
     func updateLabelColourWhenNotReachable(_ reachability: Reachability) {
