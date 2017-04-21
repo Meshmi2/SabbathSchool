@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4CECE475C40B07F746F8E294 /* Pods_SabbathSchool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36BBEBEDC07DB03410DB2C5F /* Pods_SabbathSchool.framework */; };
+		4E2178AE1EA7A79800197AAC /* StudentTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2178AD1EA7A79800197AAC /* StudentTVCell.swift */; };
 		BF07C8991E71FBD100BC9BD2 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF07C8981E71FBD100BC9BD2 /* CalendarVC.swift */; };
 		BF1801401E7866360022685C /* page2.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF18013B1E7866360022685C /* page2.xib */; };
 		BF1801411E7866360022685C /* page1.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF18013C1E7866360022685C /* page1.xib */; };
@@ -99,6 +100,7 @@
 		128581DC457968789B31146B /* Pods-SabbathSchool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SabbathSchool.release.xcconfig"; path = "Pods/Target Support Files/Pods-SabbathSchool/Pods-SabbathSchool.release.xcconfig"; sourceTree = "<group>"; };
 		36BBEBEDC07DB03410DB2C5F /* Pods_SabbathSchool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SabbathSchool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F36A5A7C5DE688B74C8B30A /* Pods-SabbathSchool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SabbathSchool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SabbathSchool/Pods-SabbathSchool.debug.xcconfig"; sourceTree = "<group>"; };
+		4E2178AD1EA7A79800197AAC /* StudentTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentTVCell.swift; sourceTree = "<group>"; };
 		BF07C8981E71FBD100BC9BD2 /* CalendarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		BF18013B1E7866360022685C /* page2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = page2.xib; sourceTree = "<group>"; };
 		BF18013C1E7866360022685C /* page1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = page1.xib; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				BF6AA2171E93E8940013FE0C /* CardTVCell.swift */,
 				BFCB01701E9562AF006E23A9 /* FriendTVCell.swift */,
 				BFA422671E96BB4E0006FB4A /* InitialInformationWithOutPercentualTVCell.swift */,
+				4E2178AD1EA7A79800197AAC /* StudentTVCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2178AE1EA7A79800197AAC /* StudentTVCell.swift in Sources */,
 				BFE2CCF21E684A4D0040FC35 /* Misc.swift in Sources */,
 				BFCB01771E95AD8A006E23A9 /* Class_+CoreDataProperties.swift in Sources */,
 				BFE2CCF51E684A4D0040FC35 /* SpringAnimation.swift in Sources */,
