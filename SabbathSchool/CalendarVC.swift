@@ -19,6 +19,12 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var entityTypeLabel: UILabel!
+    @IBOutlet weak var entityLabel: UILabel!
+    @IBOutlet weak var periodNameLabel: UILabel!
+    @IBOutlet weak var classNameLabel: UILabel!
+    @IBOutlet weak var ageRangeLabel: UILabel!
+   
 
     var user = [User]()
     
@@ -61,7 +67,7 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         getCalendar()
         
         getCalendarCoreData()
-        
+       
     }
 
     
@@ -76,6 +82,13 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             periodId = userCurrent.periodId_
             classId = userCurrent.classId_
+            
+            
+            self.entityTypeLabel.text = userCurrent.entityTypeName_
+            self.entityLabel.text = userCurrent.entityName_
+            self.periodNameLabel.text = userCurrent.periodName_
+            self.classNameLabel.text = userCurrent.className_
+            self.ageRangeLabel.text = userCurrent.ageGroupName_
             
         } catch {
             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
@@ -228,4 +241,18 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+}
+
+extension String {
+    
+    func strstr(needle: String, beforeNeedle: Bool = false) -> String? {
+        guard let range = self.range(of: needle) else { return nil }
+        
+        if beforeNeedle {
+            return self.substring(to: range.lowerBound)
+        }
+        
+        return self.substring(from: range.upperBound)
+    }
+    
 }
