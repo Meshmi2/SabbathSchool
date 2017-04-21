@@ -8,15 +8,28 @@
 
 import Foundation
 import SideMenu
+import CoreData
 
 class SideMenuTableView: UITableViewController, ExitTVCellDelegate {
+    
+   
+   
+    @IBOutlet weak var firstNameLabel: UILabel!
+    
+    @IBOutlet weak var lastNameLabel: UILabel!
+   
+    @IBOutlet weak var functionLabel: UILabel!
+    
+    var user = [User]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
+        
         //tableView.tableFooterView = UIView(frame: CGRectZero)
+            loadUser()
         
         }
     
@@ -29,7 +42,45 @@ class SideMenuTableView: UITableViewController, ExitTVCellDelegate {
         
     }
     
-    func buttonExitDidClicked() {
+    
+    
+    func loadUser() {
+        
+        let presentRequest:NSFetchRequest<User> = User.fetchRequest()
+        
+        do {
+            user = try managedObjectContext.fetch(presentRequest)
+            
+            let userCurrent = user[0]
+        
+            // Recovery information then Class User for use in request class Info
+            
+            // Atributing information then class User for tableView Header
+            
+            functionLabel.text = userCurrent.functionName_
+            
+            if let fullname = userCurrent.name_ {
+                
+                let first = fullname.strstr(needle: " ", beforeNeedle: true)
+                
+                firstNameLabel.text = first
+                
+                
+                let last = fullname.strstr(needle: " ")
+                
+                lastNameLabel.text = last
+                
+                
+                
+            }
+            
+        } catch {
+            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+        }
+    }
+
+    
+       func buttonExitDidClicked() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil);
         let vc = storyboard.instantiateViewController(withIdentifier: "login") as! LoginVC

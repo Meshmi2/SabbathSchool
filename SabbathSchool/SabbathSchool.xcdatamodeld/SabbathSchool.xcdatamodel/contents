@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Age_" representedClassName="Age_" syncable="YES">
+        <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Calendar_" representedClassName="Calendar_" syncable="YES">
         <attribute name="date_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="function_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -71,10 +75,11 @@
         <element name="Card_" positionX="-2" positionY="-285" width="128" height="150"/>
         <element name="Class_" positionX="54" positionY="-180" width="128" height="75"/>
         <element name="Friend_" positionX="-54" positionY="270" width="128" height="133"/>
+        <element name="Header_" positionX="36" positionY="-198" width="128" height="75"/>
         <element name="Info" positionX="-153" positionY="-72" width="128" height="165"/>
         <element name="Instructor_" positionX="250" positionY="-126" width="128" height="73"/>
         <element name="Period_" positionX="63" positionY="-171" width="128" height="75"/>
         <element name="User" positionX="-171" positionY="-351" width="128" height="255"/>
-        <element name="Header_" positionX="36" positionY="-198" width="128" height="75"/>
+        <element name="Age_" positionX="36" positionY="-198" width="128" height="75"/>
     </elements>
 </model>

@@ -12,6 +12,7 @@ import ObjectMapper
 import Alamofire
 import AlamofireObjectMapper
 import ReachabilitySwift
+import UIKit
 
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -23,6 +24,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var classNameLabel: UILabel!
     @IBOutlet weak var ageRangeLabel: UILabel!
     @IBOutlet weak var levelLabel: UILabel!
+    @IBOutlet weak var actualizedAtLabel: UILabel!
     
     var reachability: Reachability?
     
@@ -36,7 +38,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var initialInformation: [InitialInformation]?
     
-    
+        
     let operation: String = "getInfo"
     var entityId: Int32 = 0
     var periodId: Int32 = 0
@@ -103,6 +105,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             let userCurrent = user[0]
             
+            print("Este é o userCurrent")
+            print(user)
+            
             // Recovery information then Class User for use in request class Info
             
             periodId = userCurrent.periodId_
@@ -126,7 +131,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
         }
     }
-    
     
     func getInfo() {
         
@@ -308,25 +312,29 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if let initialInformation = info?[indexPath.row] {
             
-            //print("-----------------------------")
-            //print(initialInformation)
-            //print("=============================")
-            
-            cell.titleLabel.text = initialInformation.title_
-            
-             
-            let value = initialInformation.value_
+                cell.info = initialInformation
+                    
+                //print("-----------------------------")
+                //print(initialInformation)
+                //print("=============================")
                 
-            let valueToString = "\(value)"
+                cell.titleLabel.text = initialInformation.title_
                 
-            let valueToStringWithPercent = valueToString.replace(target: ".0", withString: "%")
+                 
+                let value = initialInformation.value_
+                    
+                let valueToString = "\(value)"
+                    
+                let valueToStringWithPercent = valueToString.replace(target: ".0", withString: "%")
+                    
+                cell.percentLabel.text = valueToStringWithPercent
                 
-            cell.percentLabel.text = valueToStringWithPercent
+                cell.imgImageView.image = UIImage(named: (initialInformation.image_)!)
+                
+                cell.smileImabeView.image = UIImage(named: (initialInformation.smile_)!)
             
-            cell.imgImageView.image = UIImage(named: (initialInformation.image_)!)
-            
-            cell.smileImabeView.image = UIImage(named: (initialInformation.smile_)!)
             }
+            
             return cell
             
         } else {
@@ -339,7 +347,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             cell.valueDescriptionLabel.text = information?.descriptionValue_
             
-            cell.imgImageView.image = UIImage(named: "ic_amigos.png")
+            cell.imgImageView.image = UIImage(named: (information?.image_)!)
            
             return cell
         }
@@ -449,7 +457,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     deinit {
         stopNotifier()
     }
-    
     
 }
 

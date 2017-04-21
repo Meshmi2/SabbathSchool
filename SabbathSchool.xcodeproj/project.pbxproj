@@ -28,6 +28,9 @@
 		BF9539F31E54945B00884A36 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9539F01E54945B00884A36 /* MainViewController.swift */; };
 		BF9539F41E54945B00884A36 /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9539F11E54945B00884A36 /* PresentedViewController.swift */; };
 		BF9539F51E54945B00884A36 /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9539F21E54945B00884A36 /* SideMenuTableView.swift */; };
+		BF9735131EA7964300A3E546 /* Age_+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9735111EA7964300A3E546 /* Age_+CoreDataClass.swift */; };
+		BF9735141EA7964300A3E546 /* Age_+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9735121EA7964300A3E546 /* Age_+CoreDataProperties.swift */; };
+		BF9735161EA7966F00A3E546 /* Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9735151EA7966F00A3E546 /* Age.swift */; };
 		BFA422681E96BB4E0006FB4A /* InitialInformationWithOutPercentualTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA422671E96BB4E0006FB4A /* InitialInformationWithOutPercentualTVCell.swift */; };
 		BFA7ABAA1E84371D00DCFF3E /* Info+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA7ABA61E84371D00DCFF3E /* Info+CoreDataClass.swift */; };
 		BFA7ABAB1E84371D00DCFF3E /* Info+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA7ABA71E84371D00DCFF3E /* Info+CoreDataProperties.swift */; };
@@ -116,6 +119,9 @@
 		BF9539F01E54945B00884A36 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BF9539F11E54945B00884A36 /* PresentedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentedViewController.swift; sourceTree = "<group>"; };
 		BF9539F21E54945B00884A36 /* SideMenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
+		BF9735111EA7964300A3E546 /* Age_+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Age_+CoreDataClass.swift"; path = "CoreData/Age_+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BF9735121EA7964300A3E546 /* Age_+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Age_+CoreDataProperties.swift"; path = "CoreData/Age_+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		BF9735151EA7966F00A3E546 /* Age.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Age.swift; sourceTree = "<group>"; };
 		BFA422671E96BB4E0006FB4A /* InitialInformationWithOutPercentualTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialInformationWithOutPercentualTVCell.swift; sourceTree = "<group>"; };
 		BFA7ABA61E84371D00DCFF3E /* Info+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Info+CoreDataClass.swift"; path = "CoreData/Info+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BFA7ABA71E84371D00DCFF3E /* Info+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Info+CoreDataProperties.swift"; path = "CoreData/Info+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -226,6 +232,8 @@
 		BF3A52821E84085D00F9015D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				BF9735111EA7964300A3E546 /* Age_+CoreDataClass.swift */,
+				BF9735121EA7964300A3E546 /* Age_+CoreDataProperties.swift */,
 				BFF8F9DA1EA6343300AB9B96 /* Header_+CoreDataClass.swift */,
 				BFF8F9DB1EA6343300AB9B96 /* Header_+CoreDataProperties.swift */,
 				BFCB01721E95AD8A006E23A9 /* Class_+CoreDataClass.swift */,
@@ -262,6 +270,7 @@
 			children = (
 				BF6A77E91E8BFA77007DA44B /* Class.swift */,
 				BF6A77EB1E8BFABA007DA44B /* Period.swift */,
+				BF9735151EA7966F00A3E546 /* Age.swift */,
 			);
 			name = Pameters;
 			sourceTree = "<group>";
@@ -559,6 +568,7 @@
 				BFA7ABAD1E84371D00DCFF3E /* User+CoreDataProperties.swift in Sources */,
 				BFE2CCF31E684A4D0040FC35 /* SoundPlayer.swift in Sources */,
 				BF07C8991E71FBD100BC9BD2 /* CalendarVC.swift in Sources */,
+				BF9735141EA7964300A3E546 /* Age_+CoreDataProperties.swift in Sources */,
 				BFE2CCEF1E684A4D0040FC35 /* KeyboardLayoutConstraint.swift in Sources */,
 				BFE2CCF71E684A4D0040FC35 /* SpringImageView.swift in Sources */,
 				BF6A77EA1E8BFA77007DA44B /* Class.swift in Sources */,
@@ -574,6 +584,7 @@
 				BF6AA2181E93E8940013FE0C /* CardTVCell.swift in Sources */,
 				BFB95F9B1E536C21008BF5ED /* AppDelegate.swift in Sources */,
 				BF6A77EC1E8BFABA007DA44B /* Period.swift in Sources */,
+				BF9735131EA7964300A3E546 /* Age_+CoreDataClass.swift in Sources */,
 				BFF8F9DC1EA6343300AB9B96 /* Header_+CoreDataClass.swift in Sources */,
 				BF9539F41E54945B00884A36 /* PresentedViewController.swift in Sources */,
 				BFE2CCE71E684A4D0040FC35 /* DesignableLabel.swift in Sources */,
@@ -593,6 +604,7 @@
 				BFE2CCFD1E684A4D0040FC35 /* TransitionZoom.swift in Sources */,
 				BFDEE7AF1E93BDFC00BE2AAA /* Calendar.swift in Sources */,
 				BF3A52811E83FDB500F9015D /* ExitTVCell.swift in Sources */,
+				BF9735161EA7966F00A3E546 /* Age.swift in Sources */,
 				BFE2CCEA1E684A4D0040FC35 /* DesignableTextView.swift in Sources */,
 				BFCB01791E95AD8A006E23A9 /* Period_+CoreDataProperties.swift in Sources */,
 				BF76B40A1E54D2E400957B0C /* InitialInformationVCell.swift in Sources */,

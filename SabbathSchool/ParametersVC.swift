@@ -35,7 +35,11 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
     
     var user = [User]()
     
-    var period: [Period_]?
+    var period_ = [Period_]()
+    
+    var class_ = [Class_]()
+    
+    var age_ = [Age_]()
     
     var initialInformationPeriod: [periodMaster]?
     
@@ -44,6 +48,7 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
     var contextObject: NSManagedObjectContext!
     var newPeriod: NSManagedObject!
     var newClass: NSManagedObject!
+    var newAge: NSManagedObject!
     
     override func viewDidLoad() {
         super.viewDidLoad() 
@@ -63,8 +68,32 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
         
         getPeriod()
         
+        getAge()
+        
+        loadUser()
+        
     }
     
+    func loadUser() {
+        
+        let presentRequest:NSFetchRequest<User> = User.fetchRequest()
+        
+        do {
+            
+            user = try managedObjectContext.fetch(presentRequest)
+            
+            let userCurrent = user[0]
+        
+            choosePeriodButton.setTitle(userCurrent.periodName_, for: .normal)
+            chooseAgeRangeButton.setTitle(userCurrent.ageGroupName_, for: .normal)
+            chooseClassButton.setTitle(userCurrent.className_, for: .normal)
+            
+        } catch {
+            
+            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+        
+        }
+    }
     
     @IBAction func changePeriod(_ sender: AnyObject) {
         choosePeriod.show()
@@ -130,20 +159,32 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
     
     
     func setupChoosePeriodDropDown() {
+        
+        
+        loadPeriod()
+        
+        var dataSourcePeriod = Array<String>()
+        
+        for periodo in period_ {
+            dataSourcePeriod.append(periodo.name_!)
+        }
+        
         choosePeriod.anchorView = choosePeriodButton
         
         choosePeriod.bottomOffset = CGPoint(x: 0, y: choosePeriodButton.bounds.height)
       
-        choosePeriod.dataSource = [
-            "2017 - 1º Trimestre",
-            "2016 - 4º Trimestre",
-            "2016 - 3º Trimestre",
-            "2016 - 2º Trimestre"
-        ]
+        choosePeriod.dataSource = dataSourcePeriod
         
         // Action triggered on selection
         choosePeriod.selectionAction = { [unowned self] (index, item) in
             self.choosePeriodButton.setTitle(item, for: .normal)
+            
+            let id = self.period_[index]
+            
+            let periodId = Int32(id.id_)
+            
+            self.updateUserPeriod(periodId: periodId, periodName: item)
+            
         }
         
     }
@@ -153,22 +194,32 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
 
     func setupAgeRangeDropDown() {
         
+        loadAge()
+        
+        var dataSourceAge = Array<String>()
+        
+        for idade in age_ {
+            dataSourceAge.append(idade.name_!)
+        }
+        
+        
         chooseAgeRange.anchorView = chooseAgeRangeButton
         
         chooseAgeRange.bottomOffset = CGPoint(x: 0, y: chooseAgeRangeButton.bounds.height)
         
     
-        chooseAgeRange.dataSource = [
-            "Todas as faixas etárias",
-            "Infantil",
-            "Jovens",
-            "Adultos",
-            "Adolescentes"
-        ]
+        chooseAgeRange.dataSource = dataSourceAge
         
         // Action triggered on selection
         chooseAgeRange.selectionAction = { [unowned self] (index, item) in
             self.chooseAgeRangeButton.setTitle(item, for: .normal)
+            
+            let id = self.age_[index]
+            
+            let ageGroupId = Int32(id.id_)
+            
+            self.updateUserAge(ageGroupId: ageGroupId, ageGroupName: item)
+            
         }
         
     }
@@ -176,24 +227,85 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
    
     func setupClassDropDown() {
         
+        loadClass()
+        
+        var dataSourceClass = Array<String>()
+        
+        for classe in class_ {
+            dataSourceClass.append(classe.name_!)
+        }
+     
         chooseClass.anchorView = chooseClassButton
         
         chooseClass.bottomOffset = CGPoint(x: 0, y: chooseClassButton.bounds.height)
         
-        chooseClass.dataSource = [
-            "Todas as classes",
-            "Adultos"
-        ]
+        chooseClass.dataSource = dataSourceClass
         
         // Action triggered on selection
         chooseClass.selectionAction = { [unowned self] (index, item) in
             self.chooseClassButton.setTitle(item, for: .normal)
+            
+            let id = self.class_[index]
+            
+            let classId = Int32(id.id_)
+            
+            self.updateUserClass(classId: classId, className: item)
+            
         }
         
     }
     
+    func updateUserClass(classId: Int32, className: String) {
+        
+        let presentRequest:NSFetchRequest<User> = User.fetchRequest()
+        
+        do {
+            user = try managedObjectContext.fetch(presentRequest)
+            let userCurrent = user[0]
+            
+            userCurrent.setValue(classId, forKey: "classId_")
+            userCurrent.setValue(className, forKey: "className_")
+            
+            try managedObjectContext.save()
+        } catch {
+            print("Ocorreu um erro \(error.localizedDescription)")
+        }
+    }
     
-
+    func updateUserPeriod(periodId: Int32, periodName: String) {
+        
+        let presentRequest:NSFetchRequest<User> = User.fetchRequest()
+        
+        do {
+            user = try managedObjectContext.fetch(presentRequest)
+            let userCurrent = user[0]
+            
+            userCurrent.setValue(periodId, forKey: "periodId_")
+            userCurrent.setValue(periodName, forKey: "periodName_")
+            
+            try managedObjectContext.save()
+        } catch {
+            print("Ocorreu um erro \(error.localizedDescription)")
+        }
+    }
+    
+    func updateUserAge(ageGroupId: Int32, ageGroupName: String) {
+        
+        let presentRequest:NSFetchRequest<User> = User.fetchRequest()
+        
+        do {
+            user = try managedObjectContext.fetch(presentRequest)
+            let userCurrent = user[0]
+            
+            userCurrent.setValue(ageGroupId, forKey: "ageGroupId_")
+            userCurrent.setValue(ageGroupName, forKey: "ageGroupName_")
+            
+            try managedObjectContext.save()
+        } catch {
+            print("Ocorreu um erro \(error.localizedDescription)")
+        }
+    }
+    
     
     func getClass() {
         
@@ -208,6 +320,8 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
             switch response.result {
                 
             case .failure(let error):
+                
+                self.loadClass()
                 
                 print(error.localizedDescription)
                 
@@ -234,7 +348,11 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
                         }
                         
                         do {
+                            
                             try self.newClass.managedObjectContext?.save()
+                            
+                            self.loadClass()
+                            
                         } catch {
                             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
                         }
@@ -243,6 +361,90 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
             }
         }
     }
+
+    
+    func loadClass() {
+        
+        let presentRequest:NSFetchRequest<Class_> = Class_.fetchRequest()
+        
+        do {
+            class_ = try managedObjectContext.fetch(presentRequest)
+            
+        } catch {
+            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+        }
+    }
+    
+    
+    func getAge() {
+        
+        let getAgeParameters: [String : Any] = ["operacao": "getPeriodosClassesFaixasEtarias", "pessoaId": 24, "entidadeId": 660, "funcaoId": 4]
+        
+        let getAgeEndPoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/paginaInicial/index_controller.php"
+        
+        Alamofire.request(getAgeEndPoint, method: .post, parameters: getAgeParameters).responseObject { (response: DataResponse<ageMaster>) in
+            
+            self.deleteRecords()
+            
+            switch response.result {
+                
+            case .failure(let error):
+                
+                self.loadAge()
+                
+                print(error.localizedDescription)
+                
+                return
+                
+            case .success(let data):
+                
+                self.deleteClass()
+                
+                if let someAge = data.age {
+                    for _age in someAge {
+                        
+                        let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                        self.contextObject = appDel.managedObjectContext
+                        self.newAge = NSEntityDescription.insertNewObject(forEntityName: "Age_", into: self.contextObject)
+                        
+                        
+                        if let id = _age.id {
+                            self.newAge.setValue(id, forKey: "id_")
+                            
+                        }
+                        if let name = _age.name {
+                            self.newAge.setValue(name, forKey: "name_")
+                        }
+                        
+                        do {
+                            
+                            try self.newAge.managedObjectContext?.save()
+                            
+                            self.loadAge()
+                            
+                        } catch {
+                            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func loadAge() {
+        
+        let presentRequest:NSFetchRequest<Age_> = Age_.fetchRequest()
+        
+        do {
+            age_ = try managedObjectContext.fetch(presentRequest)
+            
+        } catch {
+            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+        }
+    }
+    
+
 
     
     func getPeriod() {
@@ -259,6 +461,8 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
                 
             case .failure(let error):
                 
+                self.loadPeriod()
+                
                 print(error.localizedDescription)
                 
                 return
@@ -273,7 +477,7 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
                         let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
                         self.contextObject = appDel.managedObjectContext
                         
-                        self.newPeriod = NSEntityDescription.insertNewObject(forEntityName: "Friend_", into: self.contextObject)
+                        self.newPeriod = NSEntityDescription.insertNewObject(forEntityName: "Period_", into: self.contextObject)
                     
                         
                         if let id = _period.id {
@@ -287,7 +491,11 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
                         }
                         
                         do {
+                            
                             try self.newPeriod.managedObjectContext?.save()
+                        
+                            self.loadPeriod()
+                        
                         } catch {
                             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
                         }
@@ -308,6 +516,17 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
         }
     }
 
+    func loadPeriod() {
+        
+        let presentRequest:NSFetchRequest<Period_> = Period_.fetchRequest()
+        
+        do {
+            period_ = try managedObjectContext.fetch(presentRequest)
+            
+        } catch {
+            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+        }
+    }
     
     func deleteRecords() -> Void {
         

@@ -85,7 +85,7 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     func updataUI() {
         
         // Chama função que carrega informações do cabeçalho do JSON
-        loadHeader()
+        //loadHeader()
         
         // Altera Header
         registredLabel.text = "\(registered)"
