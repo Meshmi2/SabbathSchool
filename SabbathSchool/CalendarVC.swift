@@ -55,19 +55,15 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         imageView.image = image
         navigationItem.titleView = imageView
         
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         loadUser()
         
-        print(classId)
-        
-        print(periodId)
-        
         getCalendar()
-        
         getCalendarCoreData()
-       
+
     }
 
     
@@ -120,13 +116,34 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 for _calendar in data {
                     
                     let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                    
                     self.contextObject = appDel.managedObjectContext
+                    
                     self.newCalendar = NSEntityDescription.insertNewObject(forEntityName: "Calendar_", into: self.contextObject)
                     
-                    self.newCalendar.setValue(_calendar.date, forKey: "date_")
-                    self.newCalendar.setValue(_calendar.released, forKey: "released_")
-                    self.newCalendar.setValue(_calendar.saturday, forKey: "saturday_")
-                    self.newCalendar.setValue(_calendar.status, forKey: "status_")
+                    if let date = _calendar.date {
+                        
+                        self.newCalendar.setValue(date, forKey: "date_")
+                    
+                    }
+                    
+                    if let released = _calendar.released {
+                        
+                        self.newCalendar.setValue(released, forKey: "released_")
+                    
+                    }
+                    
+                    if let saturday = _calendar.saturday {
+                        
+                        self.newCalendar.setValue(saturday, forKey: "saturday_")
+                    
+                    }
+                    
+                    if let status = _calendar.status {
+                        
+                        self.newCalendar.setValue(status, forKey: "status_")
+                    
+                    }
                     
                     do {
                         
@@ -227,9 +244,11 @@ class CalendarVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let dateSegue = calendar?[indexPath.row]
     
         if dateSegue?.date_ != nil {
+            
             dateChosenSegue = (dateSegue?.date_)!
             
         }
+        
         self.performSegue(withIdentifier: Storyboard.segueToCard, sender: nil)
         
     }

@@ -25,10 +25,27 @@ class CalendarVCell: UITableViewCell {
     }
 
     func updateUI() {
+        
         dateLabel.text = calendar.date_
+        
         saturdayLabel.text = calendar.saturday_
-    }
     
+        if let status =  calendar?.status_ {
+            
+            if status == "nao_preenchido" {
+                dateLabel.textColor = UIColor(red: 226/255.0, green: 101/255.0, blue: 99/255.0, alpha: 1)
+            }
+            
+            if status == "preenchido" {
+                dateLabel.textColor = UIColor(red: 30/255.0, green: 215/255.0, blue: 97/255.0, alpha: 1)
+            }
+            
+            if status == "nao_disponivel" {
+                dateLabel.textColor = UIColor(red: 15/255.0, green: 157/255.0, blue: 204/255.0, alpha: 1)
+            }
+        }
+        
+    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

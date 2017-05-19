@@ -87,13 +87,22 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.deleteRecords()
         
+        
+        //configureCellSpace()
+        
+        configureHeader()
+        
+    }
+    
+    func configureHeader() {
+        
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 38, height: 30))
         imageView.contentMode = .scaleAspectFit
         
         let image = UIImage(named: "logo_cabecalho.png")
         imageView.image = image
         navigationItem.titleView = imageView
-        
+
     }
     
     func loadUser() {
@@ -456,6 +465,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     deinit {
         stopNotifier()
+    }
+ 
+    func configureCellSpace() {
+        
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        
     }
     
 }

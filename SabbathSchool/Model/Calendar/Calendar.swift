@@ -9,10 +9,10 @@
 import ObjectMapper
 
 class cCalendar:Mappable {
-    var date = ""
-    var released = false
-    var saturday = ""
-    var status = ""
+    var date: String?
+    var released: Bool?
+    var saturday: String?
+    var status: String?
     
     //Impl. of Mappable protocol
     required convenience init?(map: Map) {

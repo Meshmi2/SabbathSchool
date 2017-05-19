@@ -54,6 +54,10 @@
         <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Status_" representedClassName="Status_" syncable="YES">
+        <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" isAbstract="YES" syncable="YES">
         <attribute name="ageGroupId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="ageGroupName_" optional="YES" attributeType="String" syncable="YES"/>
@@ -71,6 +75,7 @@
         <attribute name="periodName_" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Age_" positionX="36" positionY="-198" width="128" height="75"/>
         <element name="Calendar_" positionX="153" positionY="-306" width="128" height="120"/>
         <element name="Card_" positionX="-2" positionY="-285" width="128" height="150"/>
         <element name="Class_" positionX="54" positionY="-180" width="128" height="75"/>
@@ -80,6 +85,6 @@
         <element name="Instructor_" positionX="250" positionY="-126" width="128" height="73"/>
         <element name="Period_" positionX="63" positionY="-171" width="128" height="75"/>
         <element name="User" positionX="-171" positionY="-351" width="128" height="255"/>
-        <element name="Age_" positionX="36" positionY="-198" width="128" height="75"/>
+        <element name="Status_" positionX="36" positionY="-198" width="128" height="75"/>
     </elements>
 </model>

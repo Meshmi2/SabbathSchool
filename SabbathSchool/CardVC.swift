@@ -56,30 +56,31 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
         getCard()
         
-        //getCardCoreData()
+        getCardCoreData()
         
         //saveCard()
         
         updataUI()
         
+        configureCellSpace()
         
     }
 
     
     override func viewWillDisappear(_ animated: Bool) {
         
-        deleteRecords()
-        deleteHeader()
+        //deleteRecords()
+        //deleteHeader()
         
     
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadUser()
+        //loadUser()
         
-        getCard()
-        getCardCoreData()
-        print("Me chamou")
+        //getCard()
+        //getCardCoreData()
+        //print("Me chamou")
     }
     
     func updataUI() {
@@ -94,6 +95,10 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
         classLabel.text = nameClass
         
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     
     func loadUser() {
@@ -164,12 +169,18 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 self.deleteRecords()
                 self.deleteHeader()
         
+                print(data)
+                print(response)
+                
                 let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
                 self.contextObject = appDel.managedObjectContext
                 self.newHeader = NSEntityDescription.insertNewObject(forEntityName: "Header_", into: self.contextObject)
                     
                 if let registered = data.enrolled {
                     self.newHeader.setValue(registered, forKey: "registered_")
+                    
+                    
+                    
                 }
                 
                 if let form = data.form {
@@ -183,6 +194,8 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                         self.contextObject = appDel.managedObjectContext
                         self.newCard = NSEntityDescription.insertNewObject(forEntityName: "Card_", into: self.contextObject)
                         
+                        print(_card)
+                        
                         if let id = _card.questionId {
                             self.newCard.setValue(id, forKey: "id_")
                         }
@@ -195,6 +208,7 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                             self.newCard.setValue(description, forKey: "description_")
                         }
                        
+                        
                         if let value = _card.value {
                             self.newCard.setValue(value, forKey: "value_")
                         }
@@ -217,6 +231,7 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                             try self.newCard.managedObjectContext?.save()
                             
                             self.getCardCoreData()
+                            self.loadHeader()
                             
                         } catch {
                             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
@@ -405,4 +420,12 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
     }
     
+    
+    func configureCellSpace() {
+        
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+    
+    }
 }
