@@ -32,6 +32,8 @@ class CalendarVCell: UITableViewCell {
     
         if let status =  calendar?.status_ {
             
+            print(status)
+            
             if status == "nao_preenchido" {
                 dateLabel.textColor = UIColor(red: 226/255.0, green: 101/255.0, blue: 99/255.0, alpha: 1)
             }

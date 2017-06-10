@@ -2,7 +2,7 @@
 //  Card_+CoreDataProperties.swift
 //  SabbathSchool
 //
-//  Created by André Pimentel on 04/04/17.
+//  Created by André Pimentel on 29/05/17.
 //  Copyright © 2017 IASD. All rights reserved.
 //
 
@@ -16,12 +16,13 @@ extension Card_ {
         return NSFetchRequest<Card_>(entityName: "Card_")
     }
 
-    @NSManaged public var id_: Int32
-    @NSManaged public var title_: String?
-    @NSManaged public var description_: String?
-    @NSManaged public var value_: String?
     @NSManaged public var answer_: Int32
+    @NSManaged public var description_: String?
+    @NSManaged public var id_: Int32
     @NSManaged public var presence: Int32
     @NSManaged public var target_: String?
+    @NSManaged public var title_: String?
+    @NSManaged public var value_: String?
+    @NSManaged public var date: String?
 
 }

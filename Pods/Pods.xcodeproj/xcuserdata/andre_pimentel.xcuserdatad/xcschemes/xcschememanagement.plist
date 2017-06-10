@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Charts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DropDown.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -44,7 +49,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Realm.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RealmSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SideMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,12 +72,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>022640F8A80700D5580C7F0F4DA617EF</key>
+		<key>1A522D10F6B12152001FAA1183B8674E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1A522D10F6B12152001FAA1183B8674E</key>
+		<key>24712DEB79F57D28F03EA1359679BACF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,12 +92,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>44EC9CB182F58FE56DCA204FA8AB6376</key>
+		<key>5168099F2EBFC99A707C03C9EADE01A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5168099F2EBFC99A707C03C9EADE01A5</key>
+		<key>64D43D3717E166C4C1519B430CD807E2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>685614DC76DA52AF800D3319B5736895</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>699364E9658D24FF319736159FDC959C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>771852B54C8BD5689A876C78CED4871D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +127,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD2DECD812281BF7100298EC2BD040AC</key>
+		<key>B232AED8632646A9F6E4C429D048CDDD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E4ED96A1B207B97AA09F010FEE926B12</key>
 		<dict>
 			<key>primary</key>
 			<true/>

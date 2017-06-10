@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Age_" representedClassName="Age_" syncable="YES">
         <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ArrayHistory_" representedClassName="ArrayHistory_" syncable="YES">
+        <attribute name="namePeriod_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfClass_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfSaturaday_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quantityFilledOut_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Calendar_" representedClassName="Calendar_" syncable="YES">
         <attribute name="date_" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,6 +19,7 @@
     </entity>
     <entity name="Card_" representedClassName="Card_" syncable="YES">
         <attribute name="answer_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="description_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="presence" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -23,6 +30,22 @@
     <entity name="Class_" representedClassName="Class_" syncable="YES">
         <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="First_ArrayHistory_" representedClassName="First_ArrayHistory_" syncable="YES">
+        <attribute name="namePeriod_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfClass_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfSaturaday_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quantityFilledOut_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="First_ListEntity_" representedClassName="First_ListEntity_" syncable="YES">
+        <attribute name="entityId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfClass" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfSaturday_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quantityFilledOut_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="First_OneMoreLevel_" representedClassName="First_OneMoreLevel_" syncable="YES">
+        <attribute name="moreOneLevel_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Friend_" representedClassName="Friend_" syncable="YES">
         <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -36,11 +59,36 @@
         <attribute name="form_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="registered_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
+    <entity name="Header_More_" representedClassName="Header_More_" syncable="YES">
+        <attribute name="nameEntityType_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="oneMoreLevel_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="percentual" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="total_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Header_More_Fourth_" representedClassName="Header_More_Fourth_" syncable="YES">
+        <attribute name="nameEntityType_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="oneMoreLevel_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="percentual" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="total_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Header_More_Seccound_" representedClassName="Header_More_Seccound_" syncable="YES">
+        <attribute name="nameEntityType_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="oneMoreLevel_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="percentual" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="total_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Header_More_Third_" representedClassName="Header_More_Third_" syncable="YES">
+        <attribute name="nameEntityType_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="oneMoreLevel_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="percentual" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="total_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="Info" representedClassName="Info" syncable="YES">
         <attribute name="description_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="descriptionValue_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="percentual_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="questionId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="reportPercentual_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="smile_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_" optional="YES" attributeType="String" syncable="YES"/>
@@ -50,13 +98,103 @@
         <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="friend" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Friend_" inverseName="instructor" inverseEntity="Friend_" syncable="YES"/>
     </entity>
+    <entity name="ListEntity_" representedClassName="ListEntity_" syncable="YES">
+        <attribute name="entityId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfClass" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfSaturday_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quantityFilledOut_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="More_" representedClassName="More_" syncable="YES">
+        <attribute name="classId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="className_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="present" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qn2_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qp2_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="questionId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="registred_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="More_Fourth_" representedClassName="More_Fourth_" syncable="YES">
+        <attribute name="classId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="className_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="present" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qn2_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qp2_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="questionId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="registred_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="More_Seccound_" representedClassName="More_Seccound_" syncable="YES">
+        <attribute name="classId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="className_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="present" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qn2_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qp2_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="questionId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="registred_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="More_Third_" representedClassName="More_Third_" syncable="YES">
+        <attribute name="classId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="className_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="entityName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parentId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="present" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qn2_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="qp2_" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="questionId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="registred_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="OneMoreLevel_" representedClassName="OneMoreLevel_" syncable="YES">
+        <attribute name="moreOneLevel_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="Period_" representedClassName="Period_" syncable="YES">
         <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Seccound_ArrayHistory_" representedClassName="Seccound_ArrayHistory_" syncable="YES">
+        <attribute name="namePeriod_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfClass_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfSaturaday_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quantityFilledOut_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Seccound_ListEntity_" representedClassName="Seccound_ListEntity_" syncable="YES">
+        <attribute name="entityId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfClass" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfSaturday_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quantityFilledOut_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Seccound_OneMoreLevel_" representedClassName="Seccound_OneMoreLevel_" syncable="YES">
+        <attribute name="moreOneLevel_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="Status_" representedClassName="Status_" syncable="YES">
         <attribute name="id_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Third_ArrayHistory_" representedClassName="Third_ArrayHistory_" syncable="YES">
+        <attribute name="namePeriod_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfClass_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfSaturaday_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quantityFilledOut_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Third_ListEntity_" representedClassName="Third_ListEntity_" syncable="YES">
+        <attribute name="entityId_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfClass" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="numberOfSaturday_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quantityFilledOut_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Third_OneMoreLevel_" representedClassName="Third_OneMoreLevel_" syncable="YES">
+        <attribute name="moreOneLevel_" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" isAbstract="YES" syncable="YES">
         <attribute name="ageGroupId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -73,18 +211,39 @@
         <attribute name="peopleId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="periodId_" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="periodName_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="releasesReports_" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
         <element name="Age_" positionX="36" positionY="-198" width="128" height="75"/>
+        <element name="ArrayHistory_" positionX="54" positionY="-180" width="128" height="105"/>
         <element name="Calendar_" positionX="153" positionY="-306" width="128" height="120"/>
-        <element name="Card_" positionX="-2" positionY="-285" width="128" height="150"/>
+        <element name="Card_" positionX="-2" positionY="-285" width="128" height="165"/>
         <element name="Class_" positionX="54" positionY="-180" width="128" height="75"/>
-        <element name="Friend_" positionX="-54" positionY="270" width="128" height="133"/>
+        <element name="Friend_" positionX="-54" positionY="270" width="128" height="135"/>
         <element name="Header_" positionX="36" positionY="-198" width="128" height="75"/>
-        <element name="Info" positionX="-153" positionY="-72" width="128" height="165"/>
+        <element name="Header_More_" positionX="45" positionY="-189" width="128" height="105"/>
+        <element name="Header_More_Fourth_" positionX="36" positionY="-198" width="128" height="105"/>
+        <element name="Header_More_Seccound_" positionX="45" positionY="-189" width="128" height="105"/>
+        <element name="Header_More_Third_" positionX="54" positionY="-180" width="128" height="105"/>
+        <element name="Info" positionX="-153" positionY="-72" width="128" height="180"/>
         <element name="Instructor_" positionX="250" positionY="-126" width="128" height="73"/>
+        <element name="ListEntity_" positionX="36" positionY="-198" width="128" height="120"/>
+        <element name="More_" positionX="36" positionY="-198" width="128" height="195"/>
+        <element name="More_Fourth_" positionX="54" positionY="-180" width="128" height="195"/>
+        <element name="More_Seccound_" positionX="36" positionY="-198" width="128" height="195"/>
+        <element name="More_Third_" positionX="63" positionY="-171" width="128" height="195"/>
+        <element name="OneMoreLevel_" positionX="45" positionY="-189" width="128" height="60"/>
         <element name="Period_" positionX="63" positionY="-171" width="128" height="75"/>
-        <element name="User" positionX="-171" positionY="-351" width="128" height="255"/>
         <element name="Status_" positionX="36" positionY="-198" width="128" height="75"/>
+        <element name="User" positionX="-171" positionY="-351" width="128" height="270"/>
+        <element name="First_ArrayHistory_" positionX="36" positionY="-198" width="128" height="105"/>
+        <element name="First_OneMoreLevel_" positionX="45" positionY="-189" width="128" height="60"/>
+        <element name="First_ListEntity_" positionX="54" positionY="-180" width="128" height="120"/>
+        <element name="Seccound_ArrayHistory_" positionX="63" positionY="-171" width="128" height="105"/>
+        <element name="Seccound_ListEntity_" positionX="72" positionY="-162" width="128" height="120"/>
+        <element name="Seccound_OneMoreLevel_" positionX="81" positionY="-153" width="128" height="60"/>
+        <element name="Third_ArrayHistory_" positionX="90" positionY="-144" width="128" height="105"/>
+        <element name="Third_ListEntity_" positionX="36" positionY="-198" width="128" height="120"/>
+        <element name="Third_OneMoreLevel_" positionX="45" positionY="-189" width="128" height="60"/>
     </elements>
 </model>

@@ -16,6 +16,9 @@ class EditFriendVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var instructorTextField: DesignableTextField!
     @IBOutlet weak var nameFriendTextField: DesignableTextField!
     @IBOutlet weak var chooseStatusButton: UIButton!
+    @IBOutlet weak var headerLabel: UILabel!
+    
+    var user = [User]()
     
     let textField = UITextField()
     let chooseStatus = DropDown()
@@ -32,14 +35,14 @@ class EditFriendVC: UIViewController, UITextFieldDelegate {
     let operation: String = "getStatusEstudo"
     var contextObject: NSManagedObjectContext!
     var newStatus: NSManagedObject!
+    var classId = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         chooseStatusButton.setTitle("Estudando", for: .normal)
         
-        nameFriendTextField.text = nameFriendSegue
-        
+        setupView()
 
         getStatus()
         
@@ -52,6 +55,57 @@ class EditFriendVC: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    
+    func setupView() {
+        
+        if nameFriendSegue != "" {
+            
+            
+            instructorTextField.text = nameInstructorSegue
+  
+            nameFriendTextField.text = nameFriendSegue
+            
+            headerLabel.text = "Editar"
+        
+        } else {
+           
+            headerLabel.text = "Adicionar"
+        
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        nameInstructorSegue = ""
+        
+        nameFriendSegue = ""
+    
+    }
+    
+    func loadUser() {
+        
+        let presentRequest:NSFetchRequest<User> = User.fetchRequest()
+        
+        do {
+            user = try managedObjectContext.fetch(presentRequest)
+            
+            let userCurrent = user[0]
+            
+            // Recovery information then Class User for use in request class Info
+            
+            classId = Int(userCurrent.classId_)
+    
+            
+            // Atributing information then class User for tableView Header
+            
+        } catch {
+            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+        }
+    }
+
+    
+    
     // MARK: Setup
     
     fileprivate func setupNavigationBar(){
@@ -153,9 +207,9 @@ class EditFriendVC: UIViewController, UITextFieldDelegate {
             "operacao": "salvarEditarAmigo",
             "instrutor": String(describing: instructorTextField.text),
             "status": statusId,
-            "idclasse": 7793,
-            "idEstudo": 2416,
-            "amigo": "João Carlos"
+            "idclasse": classId,
+            "idEstudo": idSegue,
+            "amigo": String(describing: nameFriendTextField.text)
         ]
         
         let saveStatusEndpoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/amigosEstudo/index_controller.php"
@@ -168,6 +222,13 @@ class EditFriendVC: UIViewController, UITextFieldDelegate {
     }
 
 
+    @IBAction func saveButtonToutch(_ sender: Any) {
+        
+        setupChooseStatusDropDown()
+        
+        self.dismiss(animated: true, completion: nil)
+        
+    }
     
     func getStatus() {
         

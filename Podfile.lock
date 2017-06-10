@@ -3,33 +3,49 @@ PODS:
   - AlamofireObjectMapper (4.1.0):
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
+  - Charts/Core (3.0.1)
+  - Charts/Realm (3.0.1):
+    - Charts/Core
+    - RealmSwift (~> 1.1)
   - DropDown (2)
   - EAIntroView (2.6.4)
   - NVActivityIndicatorView (3.0)
   - ObjectMapper (2.2.5)
   - ReachabilitySwift (3)
+  - Realm (1.1.0):
+    - Realm/Headers (= 1.1.0)
+  - Realm/Headers (1.1.0)
+  - RealmSwift (1.1.0):
+    - Realm (= 1.1.0)
   - SideMenu (2.0.3)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - AlamofireObjectMapper (~> 4.0)
+  - Charts/Realm
   - DropDown
   - EAIntroView (~> 2.6.0)
   - NVActivityIndicatorView
   - ObjectMapper (~> 2.2)
   - ReachabilitySwift (~> 3)
   - SideMenu
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
+  Charts: 0e84f4418e87dad6a9edde221fba37ebb51d3ba7
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
   EAIntroView: df7dc18da73e1831d06878b9c0e13da78e6bb3ce
   NVActivityIndicatorView: 81953b5e65093ba79edf4fe7268e002039ca5268
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
+  RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
   SideMenu: f179260f85c68ed9b283b4a505600f2e6cbdfb10
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: b3b253a5d4de1e3ca2dbe2e10251b03b3333b43f
+PODFILE CHECKSUM: ba920532afc395718057c86191a7e353f995cbae
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.1.1

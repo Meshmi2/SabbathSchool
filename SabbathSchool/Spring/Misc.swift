@@ -43,7 +43,7 @@ public func htmlToAttributedString(text: String) -> NSAttributedString! {
 }
 
 public func degreesToRadians(degrees: CGFloat) -> CGFloat {
-    return degrees * CGFloat(M_PI / 180)
+    return degrees * CGFloat(Double.pi / 180)
 }
 
 public func delay(delay:Double, closure: @escaping ()->()) {

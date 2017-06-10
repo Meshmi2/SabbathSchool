@@ -24,7 +24,6 @@ let colorLineNaviBar = UIColor(red: 219/255.0, green: 219/255.0, blue: 219/255.0
 let colorNaviBar = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 1)
 let pickerColor = UIColor(red: 178/255.0, green: 181/255.0, blue: 187/255.0, alpha: 1)
 
-
 var managedObjectContext: NSManagedObjectContext!
 
 @UIApplicationMain
@@ -35,8 +34,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var errorViewShowing = false
     
     var infoViewIsShowing = false
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.tintColor = UIColor.white  // Back buttons and such
+        navigationBarAppearace.barTintColor = UIColor(red: 15/255, green: 157/255, blue: 204/255, alpha: 1)  // Bar's background color
+        
+        // To Set your navigationBar title font and color.
+        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white, NSFontAttributeName:UIFont(name:"HelveticaNeue", size: 14)!]  // Title's text color
+        
+        navigationBarAppearace.backItem?.title = ""
+       
+        self.window?.backgroundColor = UIColor.white
         
         
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -60,6 +71,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
+    
+    
+    
+    func deleteRecords() -> Void {
+        
+        // Initialize Fetch Request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        
+        // Configure Fetch Request
+        fetchRequest.includesPropertyValues = false
+        
+        do {
+            let items = try managedObjectContext?.fetch(fetchRequest) as! [NSManagedObject]
+            
+            for item in items {
+                managedObjectContext?.delete(item)
+            }
+            
+            // Save Changes
+            try managedObjectContext?.save()
+            
+        } catch {
+            appDelegate.errorView("Isso é constrangedor!")
+        }
+        
+    }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -329,6 +367,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
         if userDefault != nil {
+            
             let userArray = userDefault
             let peopleId = userArray?["PessoaId"] as? Int
     
@@ -347,6 +386,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 userCurrent.ageGroupId_ = (userArray?["FaixaEtariaId"] as? Int32)!
                 userCurrent.ageGroupName_ = (userArray?["FaixaEtariaNome"] as? String)!
                 userCurrent.entityLevel_ = (userArray?["NivelEntidade"] as? Int32)!
+                userCurrent.functionId_ = (userArray?["FuncaoId"] as? Int32)!
+                userCurrent.releasesReports_ = (userArray?["LiberaRelatorios"] as? Int16)!
                
                 
                 do {
@@ -397,15 +438,39 @@ extension CGRect{
     }
     
 }
+
 extension CGSize{
     init(_ width:CGFloat,_ height:CGFloat) {
         self.init(width:width,height:height)
     }
 }
+
 extension CGPoint{
     init(_ x:CGFloat,_ y:CGFloat) {
         self.init(x:x,y:y)
     }
 }
+
+extension Double {
+    /// Rounds the double to decimal places value
+    func roundTo(places:Int) -> Double {
+        
+        let divisor = pow(10.0, Double(places))
+        
+        return (self * divisor).rounded() / divisor
+        
+    }
+}
+
+extension String
+{
+    func replace(target: String, withString: String) -> String
+    {
+        
+        return self.replacingOccurrences(of: target, with: withString, options: NSString.CompareOptions.literal, range: nil)
+        
+    }
+}
+
 
 

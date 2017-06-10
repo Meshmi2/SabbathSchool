@@ -2,7 +2,7 @@
 //  Info+CoreDataProperties.swift
 //  SabbathSchool
 //
-//  Created by André Pimentel on 06/04/17.
+//  Created by André Pimentel on 25/05/17.
 //  Copyright © 2017 IASD. All rights reserved.
 //
 
@@ -24,5 +24,6 @@ extension Info {
     @NSManaged public var smile_: String?
     @NSManaged public var title_: String?
     @NSManaged public var value_: Double
+    @NSManaged public var questionId_: Int16
 
 }

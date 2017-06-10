@@ -333,7 +333,7 @@ open class FoldingCell: UITableViewCell {
         var delay: TimeInterval = 0
         var timing                = kCAMediaTimingFunctionEaseIn
         var from: CGFloat         = 0.0;
-        var to: CGFloat           = CGFloat(-M_PI / 2)
+        var to: CGFloat           = CGFloat(-Double.pi / 2)
         var hidden                = true
         configureAnimationItems(.open)
         
@@ -346,8 +346,8 @@ open class FoldingCell: UITableViewCell {
             
             animatedView.foldingAnimation(timing, from: from, to: to, duration: durations[index], delay: delay, hidden: hidden)
             
-            from   = from == 0.0 ? CGFloat(M_PI / 2) : 0.0;
-            to     = to == 0.0 ? CGFloat(-M_PI / 2) : 0.0;
+            from   = from == 0.0 ? CGFloat(Double.pi / 2) : 0.0;
+            to     = to == 0.0 ? CGFloat(-Double.pi / 2) : 0.0;
             timing = timing == kCAMediaTimingFunctionEaseIn ? kCAMediaTimingFunctionEaseOut : kCAMediaTimingFunctionEaseIn;
             hidden = !hidden
             delay += durations[index]
@@ -384,7 +384,7 @@ open class FoldingCell: UITableViewCell {
         var delay: TimeInterval = 0
         var timing                = kCAMediaTimingFunctionEaseIn
         var from: CGFloat         = 0.0;
-        var to: CGFloat           = CGFloat(M_PI / 2)
+        var to: CGFloat           = CGFloat(Double.pi / 2)
         var hidden                = true
         configureAnimationItems(.close)
         
@@ -396,8 +396,8 @@ open class FoldingCell: UITableViewCell {
             
             animatedView.foldingAnimation(timing, from: from, to: to, duration: durations[index], delay: delay, hidden: hidden)
             
-            to     = to == 0.0 ? CGFloat(M_PI / 2) : 0.0;
-            from   = from == 0.0 ? CGFloat(-M_PI / 2) : 0.0;
+            to     = to == 0.0 ? CGFloat(Double.pi / 2) : 0.0;
+            from   = from == 0.0 ? CGFloat(-Double.pi / 2) : 0.0;
             timing = timing == kCAMediaTimingFunctionEaseIn ? kCAMediaTimingFunctionEaseOut : kCAMediaTimingFunctionEaseIn;
             hidden = !hidden
             delay += durations[index]

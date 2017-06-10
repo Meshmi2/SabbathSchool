@@ -15,4 +15,6 @@ target 'SabbathSchool' do
 	pod 'AlamofireObjectMapper', '~> 4.0'
 	pod 'DropDown'
 	pod 'ReachabilitySwift', '~> 3'
+	pod 'Charts/Realm'
+	pod 'SwiftyJSON'
 end

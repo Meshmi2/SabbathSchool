@@ -1,19 +1,14 @@
 //
-//  ExitTVCell.swift
+//  MenuFriendCell.swift
 //  SabbathSchool
 //
-//  Created by André Pimentel on 23/03/17.
+//  Created by André Pimentel on 31/05/17.
 //  Copyright © 2017 IASD. All rights reserved.
 //
 
 import UIKit
 
-protocol ExitTVCellDelegate
-{
-    func buttonExitDidClicked()
-}
-
-class ExitTVCell: UITableViewCell {
+class MenuFriendCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,12 +21,4 @@ class ExitTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    var delegate: ExitTVCellDelegate!
-    
-    @IBAction func exitButton(sender: UIButton) {
-        
-        self.delegate?.buttonExitDidClicked()
-        
-    }
-
 }

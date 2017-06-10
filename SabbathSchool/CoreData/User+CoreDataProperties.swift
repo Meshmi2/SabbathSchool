@@ -2,7 +2,7 @@
 //  User+CoreDataProperties.swift
 //  SabbathSchool
 //
-//  Created by André Pimentel on 23/03/17.
+//  Created by André Pimentel on 31/05/17.
 //  Copyright © 2017 IASD. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import CoreData
 extension User {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<User> {
-        return NSFetchRequest<User>(entityName: "User");
+        return NSFetchRequest<User>(entityName: "User")
     }
 
     @NSManaged public var ageGroupId_: Int32
@@ -30,5 +30,6 @@ extension User {
     @NSManaged public var peopleId_: Int32
     @NSManaged public var periodId_: Int32
     @NSManaged public var periodName_: String?
+    @NSManaged public var releasesReports_: Int16
 
 }

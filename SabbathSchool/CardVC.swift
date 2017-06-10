@@ -11,19 +11,28 @@ import CoreData
 import ObjectMapper
 import Alamofire
 import AlamofireObjectMapper
+import ReachabilitySwift
+import NVActivityIndicatorView
+import SwiftyJSON
 
-class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, NVActivityIndicatorViewable {
 
     @IBOutlet weak var registredLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var classLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var reachability: Reachability?
+    
     var user = [User]()
     
     var header = [Header_]()
     
-    var card: [Card_]?
+    var card: [Card_]? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     var initialInformationCard: [cCard]?
     
@@ -46,41 +55,48 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
     }
     
+    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    var loadingView: UIView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print("Esta é a data escolhida")
-        print(dateChosenSegue)
+        
+        // Start reachability without a hostname intially
+        setupReachability(nil, useClosures: true)
+        startNotifier()
         
         loadUser()
-        
-        getCard()
-        
-        getCardCoreData()
-        
-        //saveCard()
         
         updataUI()
         
         configureCellSpace()
         
+        configureHeader()
+        
+        let dic = ["nome": "André", "idade": 24] as [String : Any]
+
+        let json = JSON(dic)
+        
+        print(json)
     }
 
+    func configureHeader() {
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 38, height: 30))
+        imageView.contentMode = .scaleAspectFit
+        
+        let image = UIImage(named: "logo_cabecalho.png")
+        imageView.image = image
+        navigationItem.titleView = imageView
+        
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
-        //deleteRecords()
-        //deleteHeader()
-        
     
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //loadUser()
         
-        //getCard()
-        //getCardCoreData()
-        //print("Me chamou")
     }
     
     func updataUI() {
@@ -146,7 +162,15 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func getCard() {
         
-        let getInfoParameters: [String : Any] = ["operacao": "getPreenchimento", "classeId": self.classId, "data": dateChosenSegue]
+        let size = CGSize(width: 30, height:30)
+        
+        startAnimating(size, message: "", type: NVActivityIndicatorType(rawValue: 1)!)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            NVActivityIndicatorPresenter.self
+        }
+        
+        let getInfoParameters: [String : Any] = ["operacao": "getPreenchimento", "classeId": 7793 /*self.classId*/, "data": dateChosenSegue]
         
         let getInfoEndpoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/preenchimentoCartao/index_controller.php"
         
@@ -159,6 +183,7 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             case .failure(let error):
                 
                 self.getCardCoreData()
+                self.loadHeader()
                 
                 print(error.localizedDescription)
                 
@@ -166,20 +191,13 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 
             case .success(let data):
                 
-                self.deleteRecords()
-                self.deleteHeader()
-        
-                print(data)
-                print(response)
-                
                 let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
                 self.contextObject = appDel.managedObjectContext
                 self.newHeader = NSEntityDescription.insertNewObject(forEntityName: "Header_", into: self.contextObject)
                     
                 if let registered = data.enrolled {
                     self.newHeader.setValue(registered, forKey: "registered_")
-                    
-                    
+                    self.registredLabel.text = String(registered)
                     
                 }
                 
@@ -193,8 +211,6 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                         let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
                         self.contextObject = appDel.managedObjectContext
                         self.newCard = NSEntityDescription.insertNewObject(forEntityName: "Card_", into: self.contextObject)
-                        
-                        print(_card)
                         
                         if let id = _card.questionId {
                             self.newCard.setValue(id, forKey: "id_")
@@ -215,6 +231,7 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                         
                         if let answer = _card.answerId {
                             self.newCard.setValue(answer, forKey: "answer_")
+        
                         }
                         
                         if let presence = _card.defineNumberPresence {
@@ -225,13 +242,16 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                             self.newCard.setValue(target, forKey: "target_")
                         }
                         
-                    
-                        do {
+                        if dateChosenSegue != "" {
+                        
+                            self.newCard.setValue(dateChosenSegue, forKey: "date")
+                        
+                        }
+                            do {
                             
                             try self.newCard.managedObjectContext?.save()
-                            
+                                
                             self.getCardCoreData()
-                            self.loadHeader()
                             
                         } catch {
                             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
@@ -239,38 +259,60 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                     }
                 }
             }
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.3) {
+                self.stopAnimating()
+            }
+
+            
         }
     }
 
     func saveCard(defineNumeroPresente: Int, questaoId: Int, valor: Int, formularioId: Int, pessoaId: Int, totalMatriculado: Int) {
         
+        let questions = ["DefineNumeroPresente": 1/*defineNumeroPresente*/,
+                         "QuestaoId": 1/*questaoId*/,
+                         "Valor":  5/*valor*/] as [String: Any]
+        
+        let questionJson = JSON(questions)
+        
         let saveCardParameters: [String : Any] = [
-            "questoes": ["DefineNumeroPresente": defineNumeroPresente,
-                         "QuestaoId":questaoId,
-                         "Valor":valor],
-            "operacao": oparationSave,
-            "classeId": classId,
+            "classeId": 7793/*classId*/,
             "data": dateChosenSegue,
-            "formularioId": formularioId,
-            "PessoaId": pessoaId,
-            "totalMatriculados": totalMatriculado
+            "formularioId": 1 /*formularioId*/,
+            "PessoaId": 1576/*pessoaId*/,
+            "TotalMatriculado": 8/*totalMatriculado*/,
+            "operacao": oparationSave,
+            "questoes": [questionJson]
         ]
+        
+        print(saveCardParameters)
         
         let saveCardEndpoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/preenchimentoCartao/index_controller.php"
         
-        //let info = Info(context: managedObjectContext)
         
-        Alamofire.request(saveCardEndpoint, method: .post, parameters: saveCardParameters).response { (response) in
-            print(response)
+        Alamofire.request(saveCardEndpoint, method: .post, parameters: saveCardParameters).responseObject { (response: DataResponse<cSaveQuestions>) in
+            
+            switch response.result {
+                
+            case .failure( _):
+                
+                print("falhou")
+                
+                return
+                
+            case .success(let data):
+                
+                print(data.result)
+            }
         }
     }
     
-    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         
-        getCardCoreData()
+        //getCardCoreData()
         
-        loadHeader()
+        //loadHeader()
         
         let tag = textField.tag
         
@@ -330,10 +372,15 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     
-    
     func getCardCoreData() {
         
         let presentRequest:NSFetchRequest<Card_> = Card_.fetchRequest()
+        
+        var predicate = NSPredicate(format: "name contains[c] %@", "001")
+        
+        predicate = NSPredicate(format: "date == %@", dateChosenSegue)
+        
+        presentRequest.predicate = predicate
         
         do {
             card = try managedObjectContext.fetch(presentRequest)
@@ -350,10 +397,18 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         // Configure Fetch Request
         fetchRequest.includesPropertyValues = false
         
+        var predicate = NSPredicate(format: "name contains[c] %@", "001")
+        
+        predicate = NSPredicate(format: "date == %@", dateChosenSegue)
+        
+        fetchRequest.predicate = predicate
+
         do {
             let items = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
             
             for item in items {
+                
+                print("Deletei este item \(item)")
                 managedObjectContext.delete(item)
             }
             
@@ -420,12 +475,157 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
     }
     
+    // Configura uma animação para a célula
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        // 1. Setar o estado inicial
+        cell.alpha = 0
+        
+        // 2. Mudar o metodo de animação
+        UIView.animate(withDuration: 1.0, animations: {
+            cell.alpha = 1.0
+        })
+    }
+    
     
     func configureCellSpace() {
         
         tableView.estimatedRowHeight = tableView.rowHeight
+        
         tableView.rowHeight = UITableViewAutomaticDimension
+        
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
     
     }
+    
+    func setupReachability(_ hostName: String?, useClosures: Bool) {
+        
+        print("Executou o setupReachability")
+        
+        let reachability = hostName == nil ? Reachability() : Reachability(hostname: hostName!)
+        
+        self.reachability = reachability
+        
+        if useClosures {
+            
+            reachability?.whenReachable = { reachability in
+                DispatchQueue.main.async {
+                    
+                    self.sendRequestWhenReachable(reachability)
+                    
+                    print("Está conectado")
+                    
+                }
+            }
+            reachability?.whenUnreachable = { reachability in
+                DispatchQueue.main.async {
+                    
+                    print("Sem conexão")
+                    
+                    self.getCoreDataWhenNotReachable(reachability)
+                    
+                    // Sem conexão
+                    
+                }
+            }
+            
+        } else {
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.reachabilityChanged(_:)), name: ReachabilityChangedNotification, object: reachability)
+            
+            print("Entrou no else")
+            
+        }
+    }
+    
+    func startNotifier() {
+        
+        print("iniciou a notificação")
+        
+        do {
+            
+            try reachability?.startNotifier()
+            
+        } catch {
+            
+            //appDelegate.infoView(message: "Unable to start\nnotifier", color: .red)
+            //print("\((message: "Unable to start\nnotifier", color: .red))" as Any)
+            
+            return
+        }
+    }
+    
+    func stopNotifier() {
+        
+        print("Parou a notificação")
+        
+        reachability?.stopNotifier()
+        
+        NotificationCenter.default.removeObserver(self, name:ReachabilityChangedNotification, object: nil)
+        
+        reachability = nil
+        
+    }
+    
+    func sendRequestWhenReachable(_ reachability: Reachability) {
+        
+        if reachability.isReachableViaWiFi {
+            
+            // Conectado via Wifi
+            print("Quando entra Está conectado")
+            
+            deleteRecords()
+            
+            deleteHeader()
+            
+            getCard()
+            
+        } else {
+            
+            //Sem conexão
+            print("Quando não tem internet")
+            
+            getCardCoreData()
+            loadHeader()
+            
+        }
+        
+    }
+    
+    func getCoreDataWhenNotReachable(_ reachability: Reachability) {
+        
+        
+        print("Outra função que vai no CoreData")
+        
+        getCardCoreData()
+        loadHeader()
+        
+        tableView.reloadData()
+        
+        appDelegate.infoView(message: reachability.currentReachabilityString, color: .red)
+        
+    }
+    
+    
+    func reachabilityChanged(_ note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        print("Executou o reachabilityChanged")
+        
+        if reachability.isReachable {
+            
+            sendRequestWhenReachable(reachability)
+            
+        } else {
+            
+            getCoreDataWhenNotReachable(reachability)
+            
+        }
+    }
+    
+    deinit {
+        stopNotifier()
+    }
+    
 }

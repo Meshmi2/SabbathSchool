@@ -17,6 +17,7 @@ class InitialInformation:Mappable {
     var DescricaoValor: String?
     var percentual: Int?
     var imgSmile: String?
+    var questionId: Int?
     
     //Impl. of Mappable protocol
     required convenience init?(map: Map) {
@@ -32,5 +33,6 @@ class InitialInformation:Mappable {
         valor <- map["valor"]
         percentual <- map["percentual"]
         imgSmile <- map["imgSmile"]
+        questionId <- map["QuestaoId"]
     }
 }

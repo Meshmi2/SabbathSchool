@@ -11,15 +11,19 @@ import CoreData
 import ObjectMapper
 import Alamofire
 import AlamofireObjectMapper
+import ReachabilitySwift
+import NVActivityIndicatorView
 
 var nameInstructorSegue = ""
 var nameFriendSegue = ""
 var statusSegue = ""
+var idSegue = 0
 
-
-class FriendsVC: UIViewController {
+class FriendsVC: UIViewController, NVActivityIndicatorViewable {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var reachability: Reachability?
     
     var user = [User]()
     
@@ -48,10 +52,14 @@ class FriendsVC: UIViewController {
         super.viewDidLoad()
 
         loadUser()
-    
-        //deleteInstructor()
-        //deleteFriends()
-        getFriend()
+        
+        // Start reachability without a hostname intially
+        setupReachability(nil, useClosures: true)
+        startNotifier()
+        
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        
+        managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         setupNavigationBar()
    
@@ -93,6 +101,14 @@ class FriendsVC: UIViewController {
     
     func getFriend() {
         
+        let size = CGSize(width: 30, height:30)
+        
+        startAnimating(size, message: "", type: NVActivityIndicatorType(rawValue: 1)!)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            NVActivityIndicatorPresenter.self
+        }
+        
         let getInfoParameters: [String : Any] = ["operacao": "getAmigos", "classeId": 7793/*self.classId*/, "data": 7/*self.functionId*/]
         
         let getInfoEndpoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/amigosEstudo/index_controller.php"
@@ -103,16 +119,13 @@ class FriendsVC: UIViewController {
             
             switch response.result {
                 
-            case .failure(let error):
+            case .failure( _):
                 
-                print(error.localizedDescription)
+                self.getFriendCoreData()
                 
                 return
                 
             case .success(let data):
-                
-                self.deleteInstructor()
-                self.deleteFriends()
                 
                 if let someFriends = data.friends {
                     for _friends in someFriends {
@@ -151,14 +164,18 @@ class FriendsVC: UIViewController {
                             
                             try self.newFriend.managedObjectContext?.save()
                             
-                            self.getFriendCoreData()
                             
                         } catch {
                             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
                         }
                     }
                 }
-                self.tableView.reloadData()
+                self.getFriendCoreData()
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
+                    self.stopAnimating()
+                }
+
             }
         }
     }
@@ -236,6 +253,135 @@ class FriendsVC: UIViewController {
         }
         
     }
+    
+    func setupReachability(_ hostName: String?, useClosures: Bool) {
+        
+        print("Executou o setupReachability")
+        
+        let reachability = hostName == nil ? Reachability() : Reachability(hostname: hostName!)
+        
+        self.reachability = reachability
+        
+        if useClosures {
+            
+            reachability?.whenReachable = { reachability in
+                DispatchQueue.main.async {
+                    
+                    self.sendRequestWhenReachable(reachability)
+                    
+                    print("Está conectado")
+                    
+                }
+            }
+            reachability?.whenUnreachable = { reachability in
+                DispatchQueue.main.async {
+                    
+                    print("Sem conexão")
+                    
+                    self.getCoreDataWhenNotReachable(reachability)
+                    
+                    // Sem conexão
+                    
+                }
+            }
+            
+        } else {
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.reachabilityChanged(_:)), name: ReachabilityChangedNotification, object: reachability)
+            
+            print("Entrou no else")
+            
+        }
+    }
+    
+    func startNotifier() {
+        
+        print("iniciou a notificação")
+        
+        do {
+            
+            try reachability?.startNotifier()
+            
+        } catch {
+            
+            //appDelegate.infoView(message: "Unable to start\nnotifier", color: .red)
+            //print("\((message: "Unable to start\nnotifier", color: .red))" as Any)
+            
+            return
+        }
+    }
+    
+    func stopNotifier() {
+        
+        print("Parou a notificação")
+        
+        reachability?.stopNotifier()
+        
+        NotificationCenter.default.removeObserver(self, name:ReachabilityChangedNotification, object: nil)
+        
+        reachability = nil
+        
+    }
+    
+    func sendRequestWhenReachable(_ reachability: Reachability) {
+        
+        if reachability.isReachableViaWiFi {
+            
+            // Conectado via Wifi
+            print("Quando entra Está conectado")
+            
+            deleteFriends()
+            
+            deleteInstructor()
+            
+            getFriend()
+            
+        } else {
+            
+            //Sem conexão
+            print("Quando não tem internet")
+            
+            getFriendCoreData()
+            
+        }
+        
+    }
+    
+    func getCoreDataWhenNotReachable(_ reachability: Reachability) {
+        
+        
+        print("Outra função que vai no CoreData")
+        
+        getFriendCoreData()
+        
+        tableView.reloadData()
+        
+        appDelegate.infoView(message: reachability.currentReachabilityString, color: .red)
+        
+    }
+    
+    
+    func reachabilityChanged(_ note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        print("Executou o reachabilityChanged")
+        
+        if reachability.isReachable {
+            
+            sendRequestWhenReachable(reachability)
+            
+        } else {
+            
+            getCoreDataWhenNotReachable(reachability)
+            
+        }
+    }
+    
+    deinit {
+        stopNotifier()
+    }
+
   
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -252,6 +398,7 @@ extension FriendsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableCell(withIdentifier: "CellFriend") as! FriendTVCell
         header.instructorLabel.text = self.students[section][0].name_
+        //nameInstructorSegue = self.students[section][0].name_!
         return header
     }
     
@@ -293,7 +440,11 @@ extension FriendsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        getFriendCoreData()
+        //getFriendCoreData()
+        
+        let instructor = self.students[indexPath.section][indexPath.row - indexPath.row].name_
+       
+        nameInstructorSegue = instructor!
         
         if let nameFriend = self.students[indexPath.section][indexPath.row + 1].name_ {
         
@@ -302,6 +453,10 @@ extension FriendsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         if let status = self.students[indexPath.section][indexPath.row + 1].statusId_ {
+            
+            let id = self.students[indexPath.section][indexPath.row + 1].id_
+            
+            idSegue = Int(id)
             
             statusSegue = status
             

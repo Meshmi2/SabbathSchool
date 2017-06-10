@@ -19,6 +19,8 @@ class LoginVC: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewabl
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
     
     // reset default size
     var scrollViewHeight : CGFloat = 0
@@ -63,7 +65,7 @@ class LoginVC: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewabl
                 
                 UserDefaults.standard.set(data, forKey: "user")
                 userDefault = UserDefaults.standard.value(forKey: "user") as? NSDictionary
-                
+                self.closeKeyboard()
                 appDelegate.login()
             }
         }
@@ -119,6 +121,13 @@ class LoginVC: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewabl
         self.view.endEditing(true)
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(0, 120), animated: true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(0, 0), animated: true)
+    }
     
     // Chama função que esconde o teclado toda vez que a tela é tocada
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -129,8 +138,7 @@ class LoginVC: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewabl
     func hideKeyboardTap(recoginizer:UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
-    
-    
+
     // show keyboard
     func showKeyboard(notification:NSNotification) {
         
@@ -156,7 +164,21 @@ class LoginVC: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewabl
         
         if loginTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
             
-            appDelegate.errorView("Ops, informe usuário e senha")
+            if (loginTextField.text?.isEmpty)! && (passwordTextField.text != "") {
+                appDelegate.errorView("Não esqueça de prencher seu e-mail")
+                loginLabel.textColor = UIColor(red: 251/255.0, green: 0/255.0, blue: 78/255.0, alpha: 1.0)
+                passwordLabel.textColor = UIColor(red: 201/255.0, green: 201/255.0, blue: 201/255.0, alpha: 1.0)
+            }
+            if (passwordTextField.text?.isEmpty)! && loginTextField.text != "" {
+                appDelegate.errorView("Informe sua senha")
+                passwordLabel.textColor = UIColor(red: 251/255.0, green: 0/255.0, blue: 78/255.0, alpha: 1.0)
+                loginLabel.textColor = UIColor(red: 201/255.0, green: 201/255.0, blue: 201/255.0, alpha: 1.0)
+            }
+            if (loginTextField.text?.isEmpty)! && (passwordTextField.text?.isEmpty)! {
+                appDelegate.errorView("Preecha as informações")
+                passwordLabel.textColor = UIColor(red: 251/255.0, green: 0/255.0, blue: 78/255.0, alpha: 1.0)
+                loginLabel.textColor = UIColor(red: 251/255.0, green: 0/255.0, blue: 78/255.0, alpha: 1.0)
+            }
         
         } else {
             

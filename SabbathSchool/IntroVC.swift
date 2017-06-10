@@ -16,11 +16,15 @@ class IntroVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func showLogin(_ sender: UIButton?) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil);
-        let vc = storyboard.instantiateViewController(withIdentifier: "login") as! LoginVC
-        // vc.delegate = self
-        self.present(vc, animated: true, completion: nil)
-    }
+//    @IBAction func showLogin(_ sender: UIButton?) {
+//        
+//        print("Vai para a o login")
+//        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil);
+//        let vc = storyboard.instantiateViewController(withIdentifier: "login") as! LoginVC
+//        // vc.delegate = self
+//        
+//        self.present(vc, animated: true, completion: nil)
+//    }
 
 }

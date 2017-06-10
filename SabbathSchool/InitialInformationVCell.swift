@@ -1,5 +1,5 @@
 //
-//  QuestionsTVCell.swift
+//  InitialInformationTVCell.swift
 //  SabbathSchool
 //
 //  Created by André Pimentel on 15/02/17.

@@ -12,6 +12,7 @@ import Foundation
 import ObjectMapper
 import CoreData
 import DropDown
+import ReachabilitySwift
 
 class ParametersVC: UIViewController, UITextFieldDelegate {
     
@@ -19,6 +20,7 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var chooseAgeRangeButton: UIButton!
     @IBOutlet weak var chooseClassButton: UIButton!
     
+    var reachability: Reachability?
     
     let textField = UITextField()
     let choosePeriod = DropDown()
@@ -53,24 +55,25 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad() 
         
+        // Start reachability without a hostname intially
+        setupReachability(nil, useClosures: true)
+        startNotifier()
+    
+        loadUser()
+        
+        configureHeader()
+        
+    }
+    
+    
+    func configureHeader() {
+        
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 38, height: 30))
         imageView.contentMode = .scaleAspectFit
         
         let image = UIImage(named: "logo_cabecalho.png")
         imageView.image = image
         navigationItem.titleView = imageView
-        
-        choosePeriodButton.setTitle("Selecione um Periodo", for: .normal)
-        chooseClassButton.setTitle("Selecione uma Classe", for: .normal)
-        chooseAgeRangeButton.setTitle("Selecione um Faixa", for: .normal)
-        
-        getClass()
-        
-        getPeriod()
-        
-        getAge()
-        
-        loadUser()
         
     }
     
@@ -109,6 +112,7 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
     
     
     func setupDefaultDropDown() {
+        
         DropDown.setupDefaultAppearance()
         
         dropDowns.forEach {
@@ -118,6 +122,7 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
     }
     
     func customizeDropDown(_ sender: AnyObject) {
+        
         let appearance = DropDown.appearance()
         
         appearance.cellHeight = 60
@@ -160,7 +165,6 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
     
     func setupChoosePeriodDropDown() {
         
-        
         loadPeriod()
         
         var dataSourcePeriod = Array<String>()
@@ -188,9 +192,6 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
         }
         
     }
-    
-   
-    
 
     func setupAgeRangeDropDown() {
         
@@ -200,6 +201,7 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
         
         for idade in age_ {
             dataSourceAge.append(idade.name_!)
+        
         }
         
         
@@ -306,16 +308,78 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func getPeriod() {
+        
+        let getPeriodParameters: [String : Any] = ["operacao": "getPeriodosClassesFaixasEtarias", "pessoaId": 139, "entidadeId": 3, "funcaoId": 11]
+        
+        let getPeriodEndPoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/paginaInicial/index_controller.php"
+        
+        Alamofire.request(getPeriodEndPoint, method: .post, parameters: getPeriodParameters).responseObject { (response: DataResponse<periodMaster>) in
+            
+            switch response.result {
+                
+            case .failure(let error):
+                
+                self.loadPeriod()
+                
+                print(error.localizedDescription)
+                
+                return
+                
+            case .success(let data):
+                
+                if let somePeriod = data.period {
+                    for _period in somePeriod {
+                        
+                        let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                        self.contextObject = appDel.managedObjectContext
+                        
+                        self.newPeriod = NSEntityDescription.insertNewObject(forEntityName: "Period_", into: self.contextObject)
+                        
+                        
+                        if let id = _period.id {
+                            
+                            self.newPeriod.setValue(id, forKey: "id_")
+                        }
+                        
+                        if let name = _period.name {
+                            
+                            self.newPeriod.setValue(name, forKey: "name_")
+                        }
+                        
+                        do {
+                            
+                            try self.newPeriod.managedObjectContext?.save()
+                            
+                            //self.loadPeriod()
+                            
+                        } catch {
+                            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+                        }
+                    }
+                    
+                }
+                
+                self.setupDropDowns()
+                
+                self.dropDowns.forEach { $0.dismissMode = .onTap }
+                
+                self.dropDowns.forEach { $0.direction = .any }
+                
+                self.view.addSubview(self.textField)
+                
+            }
+            
+        }
+    }
     
     func getClass() {
         
-        let getClassParameters: [String : Any] = ["operacao": "getPeriodosClassesFaixasEtarias", "pessoaId": 24, "entidadeId": 660, "funcaoId": 4]
+        let getClassParameters: [String : Any] = ["operacao": "getPeriodosClassesFaixasEtarias", "pessoaId": 139, "entidadeId": 3, "funcaoId": 11]
         
         let getClassEndPoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/paginaInicial/index_controller.php"
         
         Alamofire.request(getClassEndPoint, method: .post, parameters: getClassParameters).responseObject { (response: DataResponse<classMaster>) in
-            
-            self.deleteRecords()
             
             switch response.result {
                 
@@ -329,15 +393,12 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
                 
             case .success(let data):
                 
-                self.deleteClass()
-                
                 if let someClass = data.classe {
                     for _classe in someClass {
                         
                         let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
                         self.contextObject = appDel.managedObjectContext
                         self.newClass = NSEntityDescription.insertNewObject(forEntityName: "Class_", into: self.contextObject)
-                        
                         
                         if let id = _classe.id {
                             self.newClass.setValue(id, forKey: "id_")
@@ -351,40 +412,34 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
                             
                             try self.newClass.managedObjectContext?.save()
                             
-                            self.loadClass()
+                            //self.loadClass()
                             
                         } catch {
                             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
                         }
                     }
                 }
+                
+                self.setupDropDowns()
+                
+                self.dropDowns.forEach { $0.dismissMode = .onTap }
+                
+                self.dropDowns.forEach { $0.direction = .any }
+                
+                self.view.addSubview(self.textField)
             }
         }
     }
-
-    
-    func loadClass() {
-        
-        let presentRequest:NSFetchRequest<Class_> = Class_.fetchRequest()
-        
-        do {
-            class_ = try managedObjectContext.fetch(presentRequest)
-            
-        } catch {
-            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
-        }
-    }
-    
     
     func getAge() {
         
-        let getAgeParameters: [String : Any] = ["operacao": "getPeriodosClassesFaixasEtarias", "pessoaId": 24, "entidadeId": 660, "funcaoId": 4]
+        let getAgeParameters: [String : Any] = ["operacao": "getPeriodosClassesFaixasEtarias", "pessoaId": 139, "entidadeId": 3, "funcaoId": 11]
         
         let getAgeEndPoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/paginaInicial/index_controller.php"
         
         Alamofire.request(getAgeEndPoint, method: .post, parameters: getAgeParameters).responseObject { (response: DataResponse<ageMaster>) in
             
-            self.deleteRecords()
+            //self.deletePeriod()
             
             switch response.result {
                 
@@ -397,8 +452,6 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
                 return
                 
             case .success(let data):
-                
-                self.deleteClass()
                 
                 if let someAge = data.age {
                     for _age in someAge {
@@ -420,20 +473,27 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
                             
                             try self.newAge.managedObjectContext?.save()
                             
-                            self.loadAge()
+                            //self.loadAge()
                             
                         } catch {
                             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
                         }
                     }
                 }
+                
+                self.setupDropDowns()
+                
+                self.dropDowns.forEach { $0.dismissMode = .onTap }
+                
+                self.dropDowns.forEach { $0.direction = .any }
+                
+                self.view.addSubview(self.textField)
             }
         }
     }
     
-    
     func loadAge() {
-        
+        print("loadAge")
         let presentRequest:NSFetchRequest<Age_> = Age_.fetchRequest()
         
         do {
@@ -444,80 +504,9 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-
-
-    
-    func getPeriod() {
-        
-        let getPeriodParameters: [String : Any] = ["operacao": "getPeriodosClassesFaixasEtarias", "pessoaId": 24, "entidadeId": 660, "funcaoId": 4]
-        
-        let getPeriodEndPoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/paginaInicial/index_controller.php"
-        
-        Alamofire.request(getPeriodEndPoint, method: .post, parameters: getPeriodParameters).responseObject { (response: DataResponse<periodMaster>) in
-            
-            //let data = response.result.value
-            
-            switch response.result {
-                
-            case .failure(let error):
-                
-                self.loadPeriod()
-                
-                print(error.localizedDescription)
-                
-                return
-                
-            case .success(let data):
-                
-                self.deleteRecords()
-                
-                if let somePeriod = data.period {
-                    for _period in somePeriod {
-                        
-                        let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
-                        self.contextObject = appDel.managedObjectContext
-                        
-                        self.newPeriod = NSEntityDescription.insertNewObject(forEntityName: "Period_", into: self.contextObject)
-                    
-                        
-                        if let id = _period.id {
-                            print(id)
-                            self.newPeriod.setValue(id, forKey: "id_")
-                        }
-                        
-                        if let name = _period.name {
-                            print(name)
-                            self.newPeriod.setValue(name, forKey: "name_")
-                        }
-                        
-                        do {
-                            
-                            try self.newPeriod.managedObjectContext?.save()
-                        
-                            self.loadPeriod()
-                        
-                        } catch {
-                            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
-                        }
-                    }
-                    
-                }
-                
-                self.setupDropDowns()
-                
-                self.dropDowns.forEach { $0.dismissMode = .onTap }
-                
-                self.dropDowns.forEach { $0.direction = .any }
-                
-                self.view.addSubview(self.textField)
-
-            }
-        
-        }
-    }
-
     func loadPeriod() {
         
+        print("loadPeriod")
         let presentRequest:NSFetchRequest<Period_> = Period_.fetchRequest()
         
         do {
@@ -528,7 +517,20 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func deleteRecords() -> Void {
+    
+    func loadClass() {
+        print("loadClass")
+        let presentRequest:NSFetchRequest<Class_> = Class_.fetchRequest()
+        
+        do {
+            class_ = try managedObjectContext.fetch(presentRequest)
+            
+        } catch {
+            appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+        }
+    }
+    
+    func deletePeriod() -> Void {
         
         // Initialize Fetch Request
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Period_")
@@ -576,7 +578,171 @@ class ParametersVC: UIViewController, UITextFieldDelegate {
         }
         
     }
+    
+    func deleteAge() -> Void {
+        
+        // Initialize Fetch Request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Age_")
+        
+        // Configure Fetch Request
+        fetchRequest.includesPropertyValues = false
+        
+        do {
+            let items = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
+            
+            for item in items {
+                managedObjectContext.delete(item)
+            }
+            
+            // Save Changes
+            try managedObjectContext.save()
+            
+        } catch {
+            appDelegate.errorView("Isso é constrangedor!")
+        }
+        
+    }
+    
+    func setupReachability(_ hostName: String?, useClosures: Bool) {
+        
+        print("Executou o setupReachability")
+        
+        let reachability = hostName == nil ? Reachability() : Reachability(hostname: hostName!)
+        
+        self.reachability = reachability
+        
+        if useClosures {
+            
+            reachability?.whenReachable = { reachability in
+                DispatchQueue.main.async {
+                    
+                    self.sendRequestWhenReachable(reachability)
 
+                    print("Está conectado")
+                    
+                }
+            }
+            reachability?.whenUnreachable = { reachability in
+                DispatchQueue.main.async {
+                    
+                    self.getCoreDataWhenNotReachable(reachability)
+                    
+                    // Sem conexão
+                    
+                    print("Sem conexão")
+                    
+                    //self.getInfoCoreData()
+                    
+                }
+            }
+            
+        } else {
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.reachabilityChanged(_:)), name: ReachabilityChangedNotification, object: reachability)
+            
+            print("Entrou no else")
+            
+        }
+    }
+    
+    func startNotifier() {
+        
+        print("iniciou a notificação")
+        
+        do {
+            
+            try reachability?.startNotifier()
+            
+        } catch {
+            
+            //appDelegate.infoView(message: "Unable to start\nnotifier", color: .red)
+            //print("\((message: "Unable to start\nnotifier", color: .red))" as Any)
+            
+            return
+        }
+    }
+    
+    func stopNotifier() {
+        
+        print("Parou a notificação")
+        
+        reachability?.stopNotifier()
+        
+        NotificationCenter.default.removeObserver(self, name:ReachabilityChangedNotification, object: nil)
+        
+        reachability = nil
+        
+    }
+    
+    func sendRequestWhenReachable(_ reachability: Reachability) {
+        
+        if reachability.isReachableViaWiFi {
+            
+            // Conectado via Wifi
+            print("Quando entra Está conectado")
+            
+            deleteAge()
+            
+            deleteClass()
+            
+            deletePeriod()
+            
+            getAge()
+            
+            getClass()
+            
+            getPeriod()
+
+        } else {
+            
+            //Sem conexão
+            print("Quando não tem internet")
+            
+            loadAge()
+            
+            loadClass()
+            
+            loadPeriod()
+            
+        }
+        
+    }
+    
+    func getCoreDataWhenNotReachable(_ reachability: Reachability) {
+        
+        print("Outra função que vai no CoreData")
+        
+        loadAge()
+        
+        loadClass()
+        
+        loadPeriod()
+        
+        appDelegate.infoView(message: reachability.currentReachabilityString, color: .red)
+        
+    }
+    
+    
+    func reachabilityChanged(_ note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        print("Executou o reachabilityChanged")
+        
+        if reachability.isReachable {
+            
+            sendRequestWhenReachable(reachability)
+            
+        } else {
+            
+            getCoreDataWhenNotReachable(reachability)
+            
+        }
+    }
+    
+    deinit {
+        stopNotifier()
+    }
     
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

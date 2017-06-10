@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,53 +22,37 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acompanhar a participação e evolução de sua classe, sua igreja e a sua (falta palavra?)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaL-kp-EZN">
-                    <rect key="frame" x="65" y="175" width="245" height="59.5"/>
+                    <rect key="frame" x="65" y="205" width="245" height="59.5"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                     <color key="textColor" red="0.6078427434" green="0.603723228" blue="0.61604362729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registrar os amigos que com os quais você está estudando a bíblia e o status do estudo." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaI-Jh-RVh">
-                    <rect key="frame" x="65" y="254.5" width="245" height="59.5"/>
+                    <rect key="frame" x="65" y="279.5" width="245" height="59.5"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                     <color key="textColor" red="0.6078427434" green="0.603723228" blue="0.61604362729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_es_pequeno" translatesAutoresizingMaskIntoConstraints="NO" id="42V-m3-Brd">
-                    <rect key="frame" x="123" y="364" width="130" height="100"/>
+                    <rect key="frame" x="123" y="404" width="130" height="100"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="130" id="APE-R0-v53"/>
                         <constraint firstAttribute="height" constant="100" id="IAP-wi-mwO"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xFg-GE-ZyY">
-                    <rect key="frame" x="100" y="514" width="175" height="55"/>
-                    <color key="backgroundColor" red="0.2140612006187439" green="0.61797255277633667" blue="0.54113167524337769" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="55" id="T7D-ui-f9d"/>
-                    </constraints>
-                    <state key="normal" title="ENTRAR">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="showLogin:" destination="-1" eventType="touchUpInside" id="IKr-gb-ftW"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="42V-m3-Brd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3Sd-q6-nKZ"/>
-                <constraint firstItem="zaI-Jh-RVh" firstAttribute="top" secondItem="VaL-kp-EZN" secondAttribute="bottom" constant="20" id="8P6-ic-2BJ"/>
+                <constraint firstItem="zaI-Jh-RVh" firstAttribute="top" secondItem="VaL-kp-EZN" secondAttribute="bottom" constant="15" id="8P6-ic-2BJ"/>
                 <constraint firstItem="VaL-kp-EZN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="ADA-yY-TjU"/>
-                <constraint firstAttribute="trailing" secondItem="xFg-GE-ZyY" secondAttribute="trailing" constant="100" id="JjL-C1-Mgz"/>
                 <constraint firstAttribute="trailing" secondItem="DoU-Sw-Z2Z" secondAttribute="trailing" constant="60" id="KTE-Ob-FoC"/>
                 <constraint firstItem="DoU-Sw-Z2Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="60" id="Vpw-rs-AmD"/>
                 <constraint firstAttribute="trailing" secondItem="VaL-kp-EZN" secondAttribute="trailing" constant="65" id="Whz-v1-g88"/>
                 <constraint firstItem="DoU-Sw-Z2Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="80" id="XGr-1T-s4L"/>
-                <constraint firstItem="xFg-GE-ZyY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="100" id="YoO-rw-L8A"/>
-                <constraint firstItem="xFg-GE-ZyY" firstAttribute="top" secondItem="42V-m3-Brd" secondAttribute="bottom" constant="50" id="c2f-nX-f9l"/>
-                <constraint firstItem="VaL-kp-EZN" firstAttribute="top" secondItem="DoU-Sw-Z2Z" secondAttribute="bottom" constant="40" id="gHI-Ax-hl2"/>
+                <constraint firstItem="VaL-kp-EZN" firstAttribute="top" secondItem="DoU-Sw-Z2Z" secondAttribute="bottom" constant="70" id="gHI-Ax-hl2"/>
                 <constraint firstItem="zaI-Jh-RVh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="65" id="lt2-8c-Xkq"/>
-                <constraint firstItem="42V-m3-Brd" firstAttribute="top" secondItem="zaI-Jh-RVh" secondAttribute="bottom" constant="50" id="tVh-Qi-3aO"/>
+                <constraint firstItem="42V-m3-Brd" firstAttribute="top" secondItem="zaI-Jh-RVh" secondAttribute="bottom" constant="65" id="tVh-Qi-3aO"/>
                 <constraint firstAttribute="trailing" secondItem="zaI-Jh-RVh" secondAttribute="trailing" constant="65" id="zEG-bU-lvu"/>
             </constraints>
             <point key="canvasLocation" x="89.5" y="71.5"/>

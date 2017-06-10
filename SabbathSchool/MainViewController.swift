@@ -13,9 +13,12 @@ import Alamofire
 import AlamofireObjectMapper
 import ReachabilitySwift
 import UIKit
+import NVActivityIndicatorView
 
+var titleForPieChart = ""
+var questionIdForSegue = 0
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var entityTypeLabel: UILabel!
@@ -52,46 +55,60 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
        
         static let questionCell = "CellQuestion"
         static let questionCellWithOutPercentual = "CellQuestionWihOutPercentual"
+        static let segueToMore = "SegueToMore"
         
     }
+    
+    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    var loadingView: UIView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
         
         // Start reachability without a hostname intially
-        setupReachability(nil, useClosures: true)
-        startNotifier()
-        
-        // After 5 seconds, stop and re-start reachability, this time using a hostname
-        let dispatchTime = DispatchTime.now() + DispatchTimeInterval.seconds(5)
-        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
-            self.stopNotifier()
-            self.setupReachability(nil, useClosures: true)
-            self.startNotifier()
-            
-            let dispatchTime = DispatchTime.now() + DispatchTimeInterval.seconds(5)
-            DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
-                self.stopNotifier()
-                self.setupReachability(nil, useClosures: true)
-                self.startNotifier()
-            }
-            
-        }
+        //setupReachability(nil, useClosures: true)
+        //startNotifier()
         
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
+        //loadUser()
+        
+        
         loadUser()
         
-        self.deleteRecords()
-        
-        
-        //configureCellSpace()
+        setupReachability(nil, useClosures: true)
+        startNotifier()
         
         configureHeader()
         
+        //configureCellSpace()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("ViewdidAppear")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+       
+//        loadUser()
+//        
+//        setupReachability(nil, useClosures: true)
+//        startNotifier()
+        
+        //tableView.reloadData()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("viewDidDisappear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear")
     }
     
     func configureHeader() {
@@ -106,7 +123,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadUser() {
-        
+        print("Executou o LoadUser")
         let presentRequest:NSFetchRequest<User> = User.fetchRequest()
         
         do {
@@ -114,17 +131,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             let userCurrent = user[0]
             
-            print("Este é o userCurrent")
-            print(user)
-            
             // Recovery information then Class User for use in request class Info
-            
+            print(userCurrent)
+            print(userCurrent.entityName_)
+           
             periodId = userCurrent.periodId_
             entityId = userCurrent.entity_
             ageRange = userCurrent.ageGroupId_
             classId = userCurrent.classId_
             funcaoId = userCurrent.functionId_
-            
             
             // Atributing information then class User for tableView Header
             
@@ -135,19 +150,32 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.ageRangeLabel.text = userCurrent.ageGroupName_
             self.levelLabel.text = "\(userCurrent.entityLevel_)"
             
-            
         } catch {
+            
             appDelegate.errorView("Isso é constrangedor! \(error.localizedDescription)")
+        
         }
     }
     
     func getInfo() {
         
-        let getInfoParameters: [String : Any] = ["operacao": "getInfo", "periodoId": 3/*periodId*/, "faixaEtaria": 0/*ageRange*/ ,"classeId": 13072/*classId*/, "EntidadeId": 0/*entityId*/, "funcaoId": 7/*funcaoId*/]
-       
+        let size = CGSize(width: 30, height:30)
+        
+        startAnimating(size, message: "", type: NVActivityIndicatorType(rawValue: 1)!)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            NVActivityIndicatorPresenter.self
+        }
+
+        
+        print("Buscou informações na API")
+        
+        let getInfoParameters: [String : Any] = ["operacao": "getInfo", "periodoId": self.periodId, "faixaEtaria": self.ageRange ,"classeId": self.classId, "EntidadeId": self.entityId, "funcaoId": self.funcaoId]
+        
         let getInfoEndpoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/paginaInicial/index_controller.php"
         
-        
+        print(getInfoParameters)
+
         
         Alamofire.request(getInfoEndpoint, method: .post, parameters: getInfoParameters).responseArray { (response: DataResponse<[InitialInformation]>) in
             
@@ -155,21 +183,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
             switch response.result {
                 
-            case .failure(let error):
+            case .failure( _):
                 
                 self.getInfoCoreData()
                 
-                print(error.localizedDescription)
-                
-                
-                
+                //print(error.localizedDescription)
+    
                 return
                 
             case .success(let data):
-            
-                
-                self.deleteRecords()
-                
+        
                 for _info in data {
                     
                     let appDel: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
@@ -211,7 +234,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     
                         self.newInfo.setValue(valueArround, forKey: "value_")
 
-                        //print("5 \(value)")
                         //print("5.1 \(valueArround)")
                     }
                     
@@ -245,6 +267,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     
                     }
                     
+                    if let questionId = _info.questionId {
+                        
+                        self.newInfo.setValue(questionId, forKey: "questionId_")
+                        
+                        //print("7  + \(percentual)")
+                    }
+
+                    
                     do {
                         try self.newInfo.managedObjectContext?.save()
                         
@@ -256,8 +286,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 
             }
+         
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
+                self.stopAnimating()
+            }
             
         }
+
         
     }
     
@@ -274,6 +309,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func deleteRecords() -> Void {
+        
+        print("Chamou a função que deleta informações do CoreData")
         
         // Initialize Fetch Request
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Info")
@@ -317,15 +354,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.questionCell, for: indexPath) as! InitialInformationTVCell
             
-            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            //cell.selectionStyle = UITableViewCellSelectionStyle.none
             
             if let initialInformation = info?[indexPath.row] {
             
                 cell.info = initialInformation
-                    
-                //print("-----------------------------")
-                //print(initialInformation)
-                //print("=============================")
                 
                 cell.titleLabel.text = initialInformation.title_
                 
@@ -342,6 +375,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 cell.smileImabeView.image = UIImage(named: (initialInformation.smile_)!)
             
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
             }
             
             return cell
@@ -349,8 +383,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.questionCellWithOutPercentual, for: indexPath) as! InitialInformationWithOutPercentualTVCell
-            
-            cell.selectionStyle = UITableViewCellSelectionStyle.none
                         
             cell.titleLabel.text = information?.title_
             
@@ -358,9 +390,39 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             cell.imgImageView.image = UIImage(named: (information?.image_)!)
            
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            
             return cell
         }
        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //getInfoCoreData()
+        
+        if let dateSegue = info?[indexPath.row] {
+            
+            questionIdForSegue = Int(dateSegue.questionId_)
+            titleForPieChart = dateSegue.title_!
+    
+            self.performSegue(withIdentifier: Storyboard.segueToMore, sender: nil)
+            
+        }
+        
+    }
+    
+    // Configura uma animação para a célula
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        // 1. Setar o estado inicial
+        cell.alpha = 0
+        
+        // 2. Mudar o metodo de animação
+        UIView.animate(withDuration: 3.0, animations: {
+            cell.alpha = 1.0
+        })
     }
     
     fileprivate func setupSideMenu() {
@@ -368,10 +430,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? UISideMenuNavigationController
         
         SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        
         SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
         
         // Set up a cool background image for demo purposes
         SideMenuManager.menuAnimationBackgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+    
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -381,36 +445,53 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func setupReachability(_ hostName: String?, useClosures: Bool) {
-        //appDelegate.errorView(hostName != nil ? hostName! : "www.iap.org.br")
-    
-        print("\((hostName != nil ? hostName! : "www.iap.org.br"))")
+        
+        print("Executou o setupReachability")
         
         let reachability = hostName == nil ? Reachability() : Reachability(hostname: hostName!)
+       
         self.reachability = reachability
         
         if useClosures {
+           
             reachability?.whenReachable = { reachability in
                 DispatchQueue.main.async {
-                    self.updateLabelColourWhenReachable(reachability)
-                    self.getInfoCoreData()
-                    self.tableView.reloadData()
+                    
+                    self.sendRequestWhenReachable(reachability)
+                    
+                    print("Está conectado")
+                
                 }
             }
             reachability?.whenUnreachable = { reachability in
                 DispatchQueue.main.async {
-                    self.updateLabelColourWhenNotReachable(reachability)
-                    print("Com nexão")
+                    
+                    print("Sem conexão")
+
+                    self.getCoreDataWhenNotReachable(reachability)
+                    
+                    // Sem conexão
+                    
                 }
             }
+        
         } else {
+            
             NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.reachabilityChanged(_:)), name: ReachabilityChangedNotification, object: reachability)
+            
+            print("Entrou no else")
+        
         }
     }
     
     func startNotifier() {
-        print("--- start notifier")
+        
+        print("iniciou a notificação")
+        
         do {
+            
             try reachability?.startNotifier()
+        
         } catch {
             
             //appDelegate.infoView(message: "Unable to start\nnotifier", color: .red)
@@ -421,45 +502,67 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func stopNotifier() {
-        print("--- stop notifier")
+        
+        print("Parou a notificação")
+        
         reachability?.stopNotifier()
-        NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name:ReachabilityChangedNotification, object: nil)
+        
         reachability = nil
+    
     }
     
-    func updateLabelColourWhenReachable(_ reachability: Reachability) {
-        print("\(reachability.description) - \(reachability.currentReachabilityString)")
+    func sendRequestWhenReachable(_ reachability: Reachability) {
+        
         if reachability.isReachableViaWiFi {
-            print("Conectado com Wifi")
+            
+            // Conectado via Wifi
+            print("Quando entra Está conectado")
            
+            deleteRecords()
+            
             getInfo()
-            getInfoCoreData()
-            tableView.reloadData()
+        
         } else {
-            print("Oi de novo")
+            
+            //Sem conexão
+            print("Quando não tem internet")
+            
+            getInfoCoreData()
             
         }
-        
-        //appDelegate.errorView(reachability.currentReachabilityString)
-        print("\((reachability.currentReachabilityString))")
+    
     }
     
-    func updateLabelColourWhenNotReachable(_ reachability: Reachability) {
-        print("\(reachability.description) - \(reachability.currentReachabilityString)")
+    func getCoreDataWhenNotReachable(_ reachability: Reachability) {
+    
+        
+        print("Outra função que vai no CoreData")
+        
+        getInfoCoreData()
+        
+        tableView.reloadData()
         
         appDelegate.infoView(message: reachability.currentReachabilityString, color: .red)
-        getInfoCoreData()
-        tableView.reloadData()
+        
     }
     
     
     func reachabilityChanged(_ note: Notification) {
+        
         let reachability = note.object as! Reachability
         
+        print("Executou o reachabilityChanged")
+        
         if reachability.isReachable {
-            updateLabelColourWhenReachable(reachability)
+            
+            sendRequestWhenReachable(reachability)
+       
         } else {
-            updateLabelColourWhenNotReachable(reachability)
+            
+            getCoreDataWhenNotReachable(reachability)
+        
         }
     }
     
@@ -470,25 +573,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func configureCellSpace() {
         
         tableView.estimatedRowHeight = tableView.rowHeight
+        
         tableView.rowHeight = UITableViewAutomaticDimension
+        
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
     }
     
 }
 
-extension Double {
-    /// Rounds the double to decimal places value
-    func roundTo(places:Int) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
-    }
-}
-
-extension String
-{
-    func replace(target: String, withString: String) -> String
-    {
-        return self.replacingOccurrences(of: target, with: withString, options: NSString.CompareOptions.literal, range: nil)
-    }
-}
