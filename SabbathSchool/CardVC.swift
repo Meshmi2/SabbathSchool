@@ -270,18 +270,18 @@ class CardVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
 
     func saveCard(defineNumeroPresente: Int, questaoId: Int, valor: Int, formularioId: Int, pessoaId: Int, totalMatriculado: Int) {
         
-        let questions = ["DefineNumeroPresente": 1/*defineNumeroPresente*/,
-                         "QuestaoId": 1/*questaoId*/,
-                         "Valor":  5/*valor*/] as [String: Any]
+        let questions = ["DefineNumeroPresente": defineNumeroPresente,
+                         "QuestaoId": questaoId,
+                         "Valor":  valor] as [String: Any]
         
         let questionJson = JSON(questions)
         
         let saveCardParameters: [String : Any] = [
-            "classeId": 7793/*classId*/,
+            "classeId": classId,
             "data": dateChosenSegue,
-            "formularioId": 1 /*formularioId*/,
-            "PessoaId": 1576/*pessoaId*/,
-            "TotalMatriculado": 8/*totalMatriculado*/,
+            "formularioId": formularioId,
+            "PessoaId": pessoaId,
+            "TotalMatriculado": totalMatriculado,
             "operacao": oparationSave,
             "questoes": [questionJson]
         ]

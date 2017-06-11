@@ -109,9 +109,11 @@ class FriendsVC: UIViewController, NVActivityIndicatorViewable {
             NVActivityIndicatorPresenter.self
         }
         
-        let getInfoParameters: [String : Any] = ["operacao": "getAmigos", "classeId": 7793/*self.classId*/, "data": 7/*self.functionId*/]
+        let getInfoParameters: [String : Any] = ["operacao": "getAmigos", "classeId": self.classId, "data": self.functionId]
         
         let getInfoEndpoint: String = "http://test-sistemas.usb.org.br/escolasabatina/APIMobile/metodos/amigosEstudo/index_controller.php"
+    
+        print(getInfoParameters)
         
         //let info = Info(context: managedObjectContext)
         
